@@ -1,0 +1,45 @@
+Package: CORALIS
+Type: Package
+Title: R package for Non-coding RNA Target Enrichment Analysis
+Version: 0.1.0
+Date: 2021-06-01
+Authors@R: c(person("Daniel",
+                   "Valle-Millares",
+                   role = c("aut", "cre"),
+                   email = c("da.valle@isciii.es", "covihep_bio@isciii.es", "danielvmillares@gmail.com"),
+                   comment = c(ORCID="0000-0002-5205-855X")),
+            person("Amanda",
+                   "Fernandez-Rodriguez",
+                   role = c("aut"),
+                   email = "amandafr@isciii.es",
+                   comment = c(ORCID="0000-0002-5110-2213")),
+            person("Veronica",
+                   "Briz",
+                   role = c("aut"),
+                   email = "veronica.briz@isciii.es",
+                   comment = c(ORCID="0000-0003-2297-5098"))
+                   )
+Maintainer: Daniel Valle-Millares <da.valle@isciii.es>
+Description: Non-coding RNAs (ncRNAs) play an important role in the regulation of multitude of biological processes by interacting with and modulating the expression of their target genes.  They are part of a huge and complex network of interactions in which a single non-coding RNA regulates the expression of multiple target genes, and in turn, a single gene can be regulated by several ncRNAs.  However, the large amount of information regarding ncRNAs-target interactions further complicates the manageability and data analysis. The CORALIS package allows ncRNA-target enrichment analysis from an input list of ncRNAs.  Only experimentally validated interactions retrieved from databases such as miRTarbase and RNAInter. So far, CORALIS allows target enrichment analysis and visualization for various ncRNAs such microRNAs, snRNAs, snoRNAs and lncRNAs, from several species such: Homo sapiens, Mus musculus and Caenorhabditis elegans, among others.
+Depends: R (>= 4.0.3), stats, methods, base
+License: GPL (>= 3)
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.1
+Imports: 
+    dplyr (>= 1.0.3),
+    DBI (>= 1.1.1),
+    Publish (>= 2020.12.23),
+    networkD3 (>= 0.4),
+    stringr (>= 1.4.0),
+    htmlwidgets (>= 1.5.3),
+    ggplot2 (>= 3.3.3),
+    viridis (>= 0.3.0),
+    scales (>= 1.1.1),
+    RSQLite (>= 2.2.2)
+Suggests: 
+    knitr,
+    rmarkdown,
+    testthat (>= 3.0.0)
+VignetteBuilder: knitr
+Config/testthat/edition: 3

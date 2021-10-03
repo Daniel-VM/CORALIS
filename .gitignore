@@ -1,0 +1,10 @@
+.Rproj.user
+.Rhistory**
+.RData**
+.Ruserdata**
+inst/doc/**
+bin/db_preprocess.R
+conflicts/**
+data/db_files/**
+data/source/**
+data/hsa.gff3
