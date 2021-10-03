@@ -1,0 +1,385 @@
+{
+  "canvas": {
+    "width": 2000,
+    "height": 2000,
+    "scrollTop": 52,
+    "scrollLeft": 100,
+    "show": {
+      "tableComment": true,
+      "columnComment": true,
+      "columnDataType": true,
+      "columnDefault": true,
+      "columnAutoIncrement": false,
+      "columnPrimaryKey": true,
+      "columnUnique": false,
+      "columnNotNull": true,
+      "relationship": true
+    },
+    "database": "SQLite",
+    "databaseName": "miRTarbase_db.sqlite",
+    "canvasType": "ERD",
+    "language": "GraphQL",
+    "tableCase": "pascalCase",
+    "columnCase": "camelCase",
+    "setting": {
+      "relationshipDataTypeSync": true,
+      "columnOrder": [
+        "columnName",
+        "columnDataType",
+        "columnNotNull",
+        "columnUnique",
+        "columnAutoIncrement",
+        "columnDefault",
+        "columnComment"
+      ]
+    }
+  },
+  "table": {
+    "tables": [
+      {
+        "name": "Mirnas",
+        "comment": "",
+        "columns": [
+          {
+            "name": "id",
+            "comment": "UNIQUE",
+            "dataType": "INTEGER",
+            "default": "PRIMARY KEY",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": true,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": true,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 60,
+              "widthDefault": 90
+            },
+            "id": "287697e7-4d45-c027-a46f-a1a1398c7ece"
+          },
+          {
+            "name": "name",
+            "comment": "UNIQUE",
+            "dataType": "TEXT",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 60,
+              "widthDefault": 60
+            },
+            "id": "03948c8c-4ef8-58b3-7a03-b2353850b9ed"
+          },
+          {
+            "name": "organism_id",
+            "comment": "UNIQUE",
+            "dataType": "INTEGER",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": true,
+              "pfk": false,
+              "widthName": 73,
+              "widthComment": 60,
+              "widthDataType": 60,
+              "widthDefault": 60
+            },
+            "id": "1be0b21b-f269-1510-2f84-b894aadc172f"
+          }
+        ],
+        "ui": {
+          "active": false,
+          "left": 1114,
+          "top": 136,
+          "zIndex": 540,
+          "widthName": 60,
+          "widthComment": 60
+        },
+        "id": "5a907954-9ddc-eb96-56c0-e473fdd0bf36"
+      },
+      {
+        "name": "Genes",
+        "comment": "",
+        "columns": [
+          {
+            "name": "id",
+            "comment": "UNIQUE",
+            "dataType": "INTEGER",
+            "default": "PRIMARY KEY",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": true,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": true,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 60,
+              "widthDefault": 90
+            },
+            "id": "4ca73cee-c42d-f457-5dd5-8062f0f10684"
+          },
+          {
+            "name": "name",
+            "comment": "UNIQUE",
+            "dataType": "TEXT",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 60,
+              "widthDefault": 60
+            },
+            "id": "bc73c426-1658-b65e-32b5-ef54a615ed53"
+          }
+        ],
+        "ui": {
+          "active": false,
+          "left": 160,
+          "top": 151,
+          "zIndex": 552,
+          "widthName": 60,
+          "widthComment": 60
+        },
+        "id": "4d002d07-b53c-8763-9ffd-3aaabb95be06"
+      },
+      {
+        "name": "Organism",
+        "comment": "",
+        "columns": [
+          {
+            "name": "name",
+            "comment": "UNIQUE",
+            "dataType": "TEXT",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 60,
+              "widthDefault": 60
+            },
+            "id": "e6803bfa-a456-3303-de91-5c1c679be4cd"
+          },
+          {
+            "name": "id",
+            "comment": "UNIQUE",
+            "dataType": "INTEGER",
+            "default": "PRIMARY KEY",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": true,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": true,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 60,
+              "widthDefault": 90
+            },
+            "id": "5f0fd980-6f22-c1a4-5b56-5496db708d0c"
+          }
+        ],
+        "ui": {
+          "active": false,
+          "left": 1124,
+          "top": 527,
+          "zIndex": 554,
+          "widthName": 60,
+          "widthComment": 60
+        },
+        "id": "da483aed-afb0-e038-172a-66a32b1aa1e7"
+      },
+      {
+        "name": "Mti",
+        "comment": "",
+        "columns": [
+          {
+            "name": "gene_id",
+            "comment": "UNIQUE",
+            "dataType": "INTEGER",
+            "default": "PRIMARY KEY",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": true,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 60,
+              "widthDefault": 90
+            },
+            "id": "740ae481-2da8-9347-5d80-244644f9e14b"
+          },
+          {
+            "name": "mirna_id",
+            "comment": "UNIQUE",
+            "dataType": "INTEGER",
+            "default": "PRIMARY KEY",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": true,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 60,
+              "widthDefault": 90
+            },
+            "id": "55336309-910c-03eb-e646-d1b00c92fb13"
+          }
+        ],
+        "ui": {
+          "active": false,
+          "left": 636,
+          "top": 368,
+          "zIndex": 562,
+          "widthName": 60,
+          "widthComment": 60
+        },
+        "id": "9b530ae0-c7a2-fc9d-7d41-d4a64586bc7d"
+      }
+    ],
+    "indexes": []
+  },
+  "memo": {
+    "memos": []
+  },
+  "relationship": {
+    "relationships": [
+      {
+        "identification": false,
+        "start": {
+          "tableId": "4d002d07-b53c-8763-9ffd-3aaabb95be06",
+          "columnIds": [
+            "4ca73cee-c42d-f457-5dd5-8062f0f10684"
+          ],
+          "x": 537,
+          "y": 206,
+          "direction": "right"
+        },
+        "end": {
+          "tableId": "9b530ae0-c7a2-fc9d-7d41-d4a64586bc7d",
+          "columnIds": [
+            "740ae481-2da8-9347-5d80-244644f9e14b"
+          ],
+          "x": 636,
+          "y": 423,
+          "direction": "left"
+        },
+        "id": "bb622c04-ccb9-dca9-6a4f-816e9b1d1a7f",
+        "relationshipType": "OneN"
+      },
+      {
+        "identification": false,
+        "start": {
+          "tableId": "5a907954-9ddc-eb96-56c0-e473fdd0bf36",
+          "columnIds": [
+            "287697e7-4d45-c027-a46f-a1a1398c7ece"
+          ],
+          "x": 1114,
+          "y": 201.25,
+          "direction": "left"
+        },
+        "end": {
+          "tableId": "9b530ae0-c7a2-fc9d-7d41-d4a64586bc7d",
+          "columnIds": [
+            "55336309-910c-03eb-e646-d1b00c92fb13"
+          ],
+          "x": 1013,
+          "y": 423,
+          "direction": "right"
+        },
+        "id": "f6d7e5b1-b959-a15c-dfd6-02191b6ad238",
+        "relationshipType": "OneN"
+      },
+      {
+        "identification": false,
+        "start": {
+          "tableId": "da483aed-afb0-e038-172a-66a32b1aa1e7",
+          "columnIds": [
+            "5f0fd980-6f22-c1a4-5b56-5496db708d0c"
+          ],
+          "x": 1312.5,
+          "y": 527,
+          "direction": "top"
+        },
+        "end": {
+          "tableId": "5a907954-9ddc-eb96-56c0-e473fdd0bf36",
+          "columnIds": [
+            "1be0b21b-f269-1510-2f84-b894aadc172f"
+          ],
+          "x": 1309,
+          "y": 266.5,
+          "direction": "bottom"
+        },
+        "id": "ea94f2b5-8959-3e57-79c0-70a2db768f5c",
+        "relationshipType": "OneN"
+      }
+    ]
+  }
+}
