@@ -1,5 +1,5 @@
-#' @title The hypergeometric distribution test
-#' @description Statistical source function for target enrichment analysis. The hypergeometric distribution is used to estimate the probability of having k interactions between the ncRNAs in the input of  tienrich and the target gene according to the source databases (see ?tienrich()).
+#' @title Hypergeometric distribution test
+#' @description Statistical source function for target enrichment analysis. The hypergeometric distribution is used to estimate the probability of having k interactions between the ncRNAs in the input list provided to tienrich() and their target/s gene/s (see ?tienrich()).
 #' @usage
 #' tiehyper(
 #'  id,
@@ -16,7 +16,7 @@
 #' @param x vector representing the range of interactions from 0 to min(k, m).
 #' @param nhits integer. Number of interactions between gene "id" and ncRNAs in the input of tienrich().
 #' @details This function employs the hypergeometric distribution approach to compute the probability distribution of the interactions between the ncRNAs and their target genes (see ?dhyper for detailed info)[1].
-#' Note that this function also provides the odds ratio (OR), the relative risk (RR) as well as the standard error and their confidence intervals.
+#' Note that this function also provides the odds ratio (OR) as well as the standard error and their confidence intervals.
 #' @references 1. R Core Team (2020). R: A language and environment for statistical computing. R Foundation for Statistical Computing, Vienna, Austria. URL https://www.R-project.org/.
 #' @seealso
 #' ?tienrich and ?dhyper
@@ -65,20 +65,24 @@ tiehyper<-function(id,m,n,k,x,nhits){
 #' @param a the argument 'input_list' provided to tienrich()
 #' @param c the argument 'type' provided to tienrich()
 #' @param b the argument 'organism' provided to tienrich()
-info_args<-function(a, b, c){
+#' @param e the argument 'min' provided to tienrich()
+info_args<-function(a, b, c, e){
   if(!is.vector(a)){
     stop("Input must be provided in vector format.\n", call. = FALSE)
   }
   if(!(b %in% c('miRNA_mRNA', 'lncRNA_mRNA', 'snRNA_mRNA', 'snoRNA_mRNA'))){
-    stop("Invalid type argument.  See ?tienrich().\n", call. = FALSE)
+    stop("Invalid type argument. Available options \n'miRNA_mRNA'\n'lncRNA_mRNA'\n'snoRNA_mRNA'\n'snRNA_mRNA'\nSee ?tienrich().\n", call. = FALSE)
   }
   sp<-availsp()
   if(!(c %in% sp$Species)){
     stop("No organism name found. Run availsp() to see supported species.\n", call. = FALSE)
   }
+  if(e == 0){
+    stop("'min' should be greater than 0 (min > 0)\n", call. = FALSE)
+  }
 }
 #' @title info_items
-#' @description This function informs whether ncRNAs in the user's input list of tienrich() have target genes.
+#' @description Identification of target/s gene/s for the ncRNAs provided in the tienrich() function.
 #' @param k vector containing the ncRNAs in the input list of tienrich() for which there have been found target genes.
 #' @param l vector containing ALL ncRNAs in the user's input list.
 #' @return A subset of ncRNAs IDs for which no target genes are detected.
@@ -99,7 +103,7 @@ info_items<-function(k, l){
 #' @title info_targets
 #' @details Informs about the target enrichment analysis details according to the ncRNAs in the input list of tienrich.
 #' @param a integer. Inherits the "min" argument from tienrich() function.
-#' @param b character string. It inherits the "type" argument from tienrich() function.
+#' @param b character string. Inherits the "type" argument from tienrich() function.
 #' @param c vector of target genes found for ncRNAs in the input.
 #' @return A vector of target genes for the ncRNAs in the input.
 #' @importFrom dplyr %>%

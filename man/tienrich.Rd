@@ -17,9 +17,9 @@ tienrich(
 
 \item{type}{character string indicating the desired type of ncRNA target enrichment analysis (ie:'miRNA_mRNA' for microRNA-target interactions or 'lncRNA_mRNA' for lncRNA-target interactions, 'snoRNA_mRNA' for snoRNA-target interactions or 'snRNA_mRNA' for snRNA-target interactions).}
 
-\item{organism}{character string specifying the organism name (i.e: "Homo sapiens"). Run availsp() to see supported organisms and a summary of interactions by specie and ncRNA type.}
+\item{organism}{character string specifying the organism name (i.e: "Homo sapiens"). Run availsp() to list supported organisms and a summary of interactions by specie and ncRNA type.}
 
-\item{min}{integer specifying the minimum number of interactions that target genes must have with the ncRNAs in the input in order to be analyzed. Default is min = 1.}
+\item{min}{integer specifying the minimum number of interactions that target genes must have with the ncRNAs in the input.}
 
 \item{fdr}{adjusted p-value (Benjamin & Hochberg approach) threshold at which enriched target-genes are found.}
 }
@@ -33,7 +33,7 @@ Conducts a target enrichment analysis for a set of ncRNAs. Only experimentally v
 The tienrich function analyses the interactions between ncRNAs and their target genes thought enrichment/overrepresentation analysis.
 To this end, this function employs the hypergeometric distribution test to estimate the p-values of the interaction between the ncRNAs provided in the input_list and their target genes.
 So far, only experimentally validated interactions listed in miRTarbase (for microRNAs-target interactions)[1] and RNAInter Database (for lncRNAs, snoRNAs or snRNAs target interactions)[2] are used as background in the enrichment analysis.
-Additionally, tienrich provides other interesting statistical parameters such the odds ratio (OR), the relative risk (RR) and the adjusted p-value (false discovery rate -FDR- using Benjamin-Hochberg correction).
+Additionally, tienrich provides other interesting statistical parameters such the odds ratio (OR), the conficence intevalsand the adjusted p-value (false discovery rate -FDR- using Benjamin-Hochberg correction).
 }
 \examples{
 # vector of ncRNA IDs
@@ -54,6 +54,9 @@ tar_sno <- tienrich(input_list = ids[['snoRNAs']], min = 2, fdr = 1, organism = 
 1. Huang HY et al. 2020. miRTarBase 2020: updates to the experimentally validated microRNA-target interaction database. Nucleic Acids Res. 2020 Jan 8;48(D1):D148-D154. doi: 10.1093/nar/gkz896. PMID: 31647101; PMCID: PMC7145596.
 
 2. Lin Y et al. 2020. RNAInter in 2020: RNA interactome repository with increased coverage and annotation. Nucleic Acids Res. 2020 Jan 8;48(D1):D189-D197. doi: 10.1093/nar/gkz804. PMID: 31906603; PMCID: PMC6943043.
+}
+\seealso{
+CORALIS::tiehyper()
 }
 \author{
 Daniel Valle-Millares

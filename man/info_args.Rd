@@ -4,7 +4,7 @@
 \alias{info_args}
 \title{info_input}
 \usage{
-info_args(a, b, c)
+info_args(a, b, c, e)
 }
 \arguments{
 \item{a}{the argument 'input_list' provided to tienrich()}
@@ -12,6 +12,8 @@ info_args(a, b, c)
 \item{b}{the argument 'organism' provided to tienrich()}
 
 \item{c}{the argument 'type' provided to tienrich()}
+
+\item{e}{the argument 'min' provided to tienrich()}
 }
 \description{
 Check whether the input list in tienrich() is in valid format.

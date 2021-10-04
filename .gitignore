@@ -2,9 +2,11 @@
 .Rhistory**
 .RData**
 .Ruserdata**
-inst/doc/**
+.Rbuildignore**
+inst/doc/
 bin/db_preprocess.R
-conflicts/**
-data/db_files/**
-data/source/**
+conflicts/
+data/db_files/
+data/source/
 data/hsa.gff3
+**_Tasks.md

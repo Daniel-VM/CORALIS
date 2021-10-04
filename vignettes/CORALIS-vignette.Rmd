@@ -99,7 +99,6 @@ $$p=1-\sum_{n = 0}^{a-1} \frac{\binom{a+b}{a} \binom{c+d}{c}}{\binom{N}{a+c}}$$
 Moreover, CORALIS provides other additional interesting statistical analyses such as  the odds ratio (OR), the relative risk (RR) –plus their respective confidence interval ls at alpha=0.05 and standard errors - and the adjusted p-value (false discovery rate (FDR), using Benjamin-Hochberg correction [2]):
  
 $$OR=\frac{(\frac{a}{b})}{(\frac{c}{d})}$$
-$$RR=\frac{(\frac{a}{a+b})}{(\frac{c}{c+d})}$$
 
 # 4. Installation and package loading 
 
@@ -188,8 +187,8 @@ genetar@not_found
 *Hint: By defining min = 2, only target genes with more than 2 interactions with miRNAs in the input will be candidates for target enrichment analysis (this argument is not mandatory).*
 
 
-"*genetar*" stores the result of the miRNA-target enrichment analysis. First of all, *tienrich()* output is an object belonging to the **RnodeResult** class. This object contains 2 slots. 
-* 1) The first one, @results, is the result of the miRNA-target enrichment analysis in which we have several information: i) the target gene in Official Gene Symbol format(Gene_symbol); ii) the number of interactions between the target gene and the ncRNAs in the input (num_int); iii) the ID of the ncRNAs involved in the interaction (ncRNAs); iv) the p-value (pvalue); v) the adjusted p-value (FDR); vi) the odds ratio (OR); vii) the standard-error of the OR (OR.SE); viii) the relative confidence intervals of the OR (OR.IC); ix) the relative risk (RR); x) the standard-error of the RR (RR.SE); xi) and  the relative confidence intervals of RR (RR.IC).
+"*genetar*" stores the result of the miRNA-target enrichment analysis. First of all, *tienrich()* output is an object belonging to the **CoralisResult** class. This object contains 2 slots. 
+* 1) The first one, @results, is the result of the miRNA-target enrichment analysis in which we have several information: i) the target gene in Official Gene Symbol format(Gene_symbol); ii) the number of interactions between the target gene and the ncRNAs in the input (num_int); iii) the ID of the ncRNAs involved in the interaction (ncRNAs); iv) the p-value (pvalue); v) the adjusted p-value (FDR); vi) the odds ratio (OR); vii) the standard-error of the OR (OR.SE); viii) the relative confidence intervals of the OR (OR.IC).
 
 * 2)	The second slot, @notfound, stores the ncRNA IDs in the input list for which no experimentally validated target genes have been found.
 
