@@ -2,11 +2,13 @@
 #' @description Interactive Network graph representing the ncRNA-target interactions.
 #' @param obj an object from class CoralisResult or data.frame.
 #' @param top integer indicating the top interactions to be represented in the graph.
+#' @param fixedsize Bolean. If fixedsize=True allows for interactive network, otherwise network motion is restricted.
 #' @importFrom networkD3 forceNetwork JS
 #' @import htmlwidgets
 #' @importFrom dplyr %>% select group_by group_split distinct
 #' @importFrom stringr str_split
 #' @importFrom scales rescale
+#' @importFrom utils head
 #' @import ggplot2
 #' @import viridis
 #' @source The network graph has been built under the networkD3 package [1].
@@ -80,6 +82,7 @@ nodeNet<-function(obj, top, fixedsize){
 #' @title nodeBar
 #' @description Create a barplot to visualize the number of interactions between ncRNAs and their target genes according to the ncRNA-target enrichment analysis (see ?tienrich).
 #' @inheritParams nodeNet
+#' @importFrom stats reorder
 #' @return A object from class ggplot
 nodeBar<-function(obj, top){
   top <- ifelse(is.null(top), yes = nrow(obj), no = top)
@@ -108,12 +111,13 @@ nodeBar<-function(obj, top){
 #' @description Visualization of ncRNA-target enrichment analysis.
 #' @inheritParams nodeNet
 #' @param type string specifying the type of visual representation. So far "network" and "barplot" are available.
-#' @example
+#' @examples
 #' # vector of ncRNA IDs
 #' data(rnasID)
 #' head(ids)
 #' # Target enrichment analysis:
-#' tar_mir <- tienrich(input_list = ids[['miRNAs']],  min = 2, fdr = 1, organism = 'Homo sapiens', type = 'miRNA_mRNA')
+#' tar_mir <- tienrich(input_list = ids[['miRNAs']],
+#'                     min = 2, fdr = 1, organism = 'Homo sapiens', type = 'miRNA_mRNA')
 #' # To visualize the target enrichment analysis as barplot.
 #' bar <- nodeVisu(obj = tar_mir, top = 25, type = "barplot")
 #' print(bar)

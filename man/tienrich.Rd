@@ -6,8 +6,8 @@
 \usage{
 tienrich(
  input_list,
+ type,
  organism,
- type
  min = 1,
  fdr = 1
 )
@@ -45,10 +45,14 @@ head(ids)
 # Mus musculus -----> ids[['snoRNAs']]
 
 # Run target enrichment analysis:
-tar_mir <- tienrich(input_list = ids[['miRNAs']],  min = 2, fdr = 1, organism = 'Homo sapiens', type = 'miRNA_mRNA')
-tar_lnc <- tienrich(input_list = ids[['lncRNAs']], min = 2, fdr = 1, organism = 'Homo sapiens', type = 'lncRNA_mRNA')
-tar_sn  <- tienrich(input_list = ids[['snRNAs']],  min = 2, fdr = 1, organism = 'Mus musculus', type = 'snRNA_mRNA')
-tar_sno <- tienrich(input_list = ids[['snoRNAs']], min = 2, fdr = 1, organism = 'Mus musculus', type = 'snoRNA_mRNA')
+tar_mir<-tienrich(input_list=ids[['miRNAs']],
+                 min = 2,fdr = 1,organism='Homo sapiens',type = 'miRNA_mRNA')
+tar_lnc<-tienrich(input_list=ids[['lncRNAs']],
+                 min = 2,fdr = 1,organism='Homo sapiens',type = 'lncRNA_mRNA')
+tar_sn <-tienrich(input_list=ids[['snRNAs']],
+                 min = 2,fdr = 1,organism='Mus musculus',type = 'snRNA_mRNA')
+tar_sno<-tienrich(input_list=ids[['snoRNAs']],
+                 min = 2,fdr = 1,organism='Mus musculus',type = 'snoRNA_mRNA')
 }
 \references{
 1. Huang HY et al. 2020. miRTarBase 2020: updates to the experimentally validated microRNA-target interaction database. Nucleic Acids Res. 2020 Jan 8;48(D1):D148-D154. doi: 10.1093/nar/gkz896. PMID: 31647101; PMCID: PMC7145596.

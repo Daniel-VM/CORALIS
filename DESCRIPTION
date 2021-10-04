@@ -21,7 +21,7 @@ Authors@R: c(person("Daniel",
                    )
 Maintainer: Daniel Valle-Millares <da.valle@isciii.es>
 Description: Non-coding RNAs (ncRNAs) play an important role in the regulation of multitude of biological processes by interacting with and modulating the expression of their target genes.  They are part of a huge and complex network of interactions in which a single non-coding RNA regulates the expression of multiple target genes, and in turn, a single gene can be regulated by several ncRNAs.  However, the large amount of information regarding ncRNAs-target interactions further complicates the manageability and data analysis. The CORALIS package allows ncRNA-target enrichment analysis from an input list of ncRNAs.  Only experimentally validated interactions retrieved from databases such as miRTarbase and RNAInter. So far, CORALIS allows target enrichment analysis and visualization for various ncRNAs such microRNAs, snRNAs, snoRNAs and lncRNAs, from several species such: Homo sapiens, Mus musculus and Caenorhabditis elegans, among others.
-Depends: R (>= 4.0.3), stats, methods, base
+Depends: R (>= 4.0), stats, base
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
@@ -36,10 +36,17 @@ Imports:
     ggplot2 (>= 3.3.3),
     viridis (>= 0.3.0),
     scales (>= 1.1.1),
-    RSQLite (>= 2.2.2)
+    RSQLite (>= 2.2.2),
+    methods (>= 4.0.5)
 Suggests: 
-    knitr,
-    rmarkdown,
-    testthat (>= 3.0.0)
+    knitr (>= 1.33),
+    rmarkdown (>= 2.9),
+    testthat (>= 3.0.0),
+    captioner (>= 2.2.3),
+    devtools (>= 2.4.2),
+    kableExtra (>= 1.3.4),
+    biomaRt (>= 2.46.3),
+    clusterProfiler (>= 3.18.1),
+    org.Hs.eg.db (>= 3.12.0)
 VignetteBuilder: knitr
 Config/testthat/edition: 3

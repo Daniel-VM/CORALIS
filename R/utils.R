@@ -34,6 +34,7 @@
 #' tiehyper(id = id, m = m, n = n, k = k, x = x, nhits = nhits)
 #' @importFrom dplyr %>% mutate tibble filter
 #' @importFrom Publish table2x2
+#' @importFrom stats dhyper p.adjust
 tiehyper<-function(id,m,n,k,x,nhits){
   #HYPERGEOMETRIC DISTRIBUTION
   probabilities<- dhyper(x = x,

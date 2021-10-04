@@ -2,8 +2,8 @@
 #' @description Conducts a target enrichment analysis for a set of ncRNAs. Only experimentally validated interactions between ncRNAs and their target genes are considered (see Details section).
 #' @usage tienrich(
 #'  input_list,
+#'  type,
 #'  organism,
-#'  type
 #'  min = 1,
 #'  fdr = 1
 #' )
@@ -27,10 +27,14 @@
 #'# Mus musculus -----> ids[['snoRNAs']]
 #'
 #'# Run target enrichment analysis:
-#'tar_mir <- tienrich(input_list = ids[['miRNAs']],  min = 2, fdr = 1, organism = 'Homo sapiens', type = 'miRNA_mRNA')
-#'tar_lnc <- tienrich(input_list = ids[['lncRNAs']], min = 2, fdr = 1, organism = 'Homo sapiens', type = 'lncRNA_mRNA')
-#'tar_sn  <- tienrich(input_list = ids[['snRNAs']],  min = 2, fdr = 1, organism = 'Mus musculus', type = 'snRNA_mRNA')
-#'tar_sno <- tienrich(input_list = ids[['snoRNAs']], min = 2, fdr = 1, organism = 'Mus musculus', type = 'snoRNA_mRNA')
+#'tar_mir<-tienrich(input_list=ids[['miRNAs']],
+#'                  min = 2,fdr = 1,organism='Homo sapiens',type = 'miRNA_mRNA')
+#'tar_lnc<-tienrich(input_list=ids[['lncRNAs']],
+#'                  min = 2,fdr = 1,organism='Homo sapiens',type = 'lncRNA_mRNA')
+#'tar_sn <-tienrich(input_list=ids[['snRNAs']],
+#'                  min = 2,fdr = 1,organism='Mus musculus',type = 'snRNA_mRNA')
+#'tar_sno<-tienrich(input_list=ids[['snoRNAs']],
+#'                  min = 2,fdr = 1,organism='Mus musculus',type = 'snoRNA_mRNA')
 #' @references 1. Huang HY et al. 2020. miRTarBase 2020: updates to the experimentally validated microRNA-target interaction database. Nucleic Acids Res. 2020 Jan 8;48(D1):D148-D154. doi: 10.1093/nar/gkz896. PMID: 31647101; PMCID: PMC7145596.
 #' @references 2. Lin Y et al. 2020. RNAInter in 2020: RNA interactome repository with increased coverage and annotation. Nucleic Acids Res. 2020 Jan 8;48(D1):D189-D197. doi: 10.1093/nar/gkz804. PMID: 31906603; PMCID: PMC6943043.
 #' @return An object of class CoralisResult.
@@ -39,6 +43,8 @@
 #' @importFrom dplyr filter %>% mutate tibble rename select arrange pull
 #' @importFrom RSQLite SQLite
 #' @importFrom DBI dbConnect dbGetQuery dbDisconnect
+#' @importFrom methods setClass new
+#' @importFrom stats p.adjust
 #' @export
 tienrich<-function(input_list, type, organism, min=1,  fdr=1){
   # Input processing

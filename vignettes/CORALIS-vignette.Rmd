@@ -30,6 +30,7 @@ library(knitr)
 library(kableExtra)
 library(stringr)
 library(dplyr)
+library(prettydoc)
 devtools::document()
 ```
 
