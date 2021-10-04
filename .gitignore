@@ -5,10 +5,8 @@
 .Rbuildignore
 **.Rproj
 inst/doc/
-bin/db_preprocess.R
+bin/
 conflicts/
-data/db_files/
-data/source/
-data/hsa.gff3
+data/
 tests/
 **_Tasks.md
