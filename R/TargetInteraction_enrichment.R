@@ -52,7 +52,7 @@ tienrich<-function(input_list, type, organism, min=1,  fdr=1){
 
   # SQLite connection
   lite  <- SQLite()
-  con   <- dbConnect(lite, dbname="data/CORALIS_db.sqlite")
+  con   <- dbConnect(lite, dbname="inst/extdata/CORALIS_db.sqlite")
   query <- "SELECT Genes.name AS 'genes', Ncrnas.name AS 'ncrnas'
             FROM Source JOIN Organism JOIN Ncrnas JOIN Mti JOIN Genes
             ON Ncrnas.source_id = Source.id
