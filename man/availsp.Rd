@@ -10,7 +10,7 @@ availsp()
 An object of class data.frame
 }
 \description{
-Prints a table with the supported species and the overall number of experimentally validated interactions by specie and ncRNA type that tienrich() uses in the statistical analysis.
+Prints a table with the supported species and the overall number of experimentally validated interactions by specie and by ncRNA type.
 }
 \details{
 Experimentally validated interactions between ncRNAs and their gene targets are scanned from the following databases:

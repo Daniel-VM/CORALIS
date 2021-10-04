@@ -78,7 +78,7 @@ nodeNet<-function(obj, top, fixedsize){
                .range(["#FF6900", "#694489"]);')) %>% return(.)
 }
 #' @title nodeBar
-#' @description Create a barplot for visualizing the number of interactions between ncRNAs and their target genes according to the ncRNA-target enrichment analysis (see ?tienrich).
+#' @description Create a barplot to visualize the number of interactions between ncRNAs and their target genes according to the ncRNA-target enrichment analysis (see ?tienrich).
 #' @inheritParams nodeNet
 #' @return A object from class ggplot
 nodeBar<-function(obj, top){
@@ -88,7 +88,7 @@ nodeBar<-function(obj, top){
     geom_bar(alpha=0.8, stat="identity", color = "gray27") +
     #scale_color_viridis(option = "C",direction = 1) +
     scale_fill_viridis(option  = "C",direction = 1) +
-    ggtitle("Number of interactions per gene target")+
+    ggtitle("Number of interactions per target gene")+
     xlab("Gene names") +
     ylab("Nº interactions") +
     theme(panel.border = element_blank(),
@@ -105,9 +105,21 @@ nodeBar<-function(obj, top){
   return(g)
 }
 #' @title nodeVisu
-#' @description Visualization of ncRNA-target enrichment analysis
+#' @description Visualization of ncRNA-target enrichment analysis.
 #' @inheritParams nodeNet
 #' @param type string specifying the type of visual representation. So far "network" and "barplot" are available.
+#' @example
+#' # vector of ncRNA IDs
+#' data(rnasID)
+#' head(ids)
+#' # Target enrichment analysis:
+#' tar_mir <- tienrich(input_list = ids[['miRNAs']],  min = 2, fdr = 1, organism = 'Homo sapiens', type = 'miRNA_mRNA')
+#' # To visualize the target enrichment analysis as barplot.
+#' bar <- nodeVisu(obj = tar_mir, top = 25, type = "barplot")
+#' print(bar)
+#' # To visualize the target enrichment analysis as network graph.
+#' net <- nodeVisu(obj = tar_mir, top = 25, type = "network")
+#' print(net)
 #' @export
 nodeVisu <-function(obj, top=NULL, type, fixedsize=TRUE){
   # 1.1 Parsing inputs

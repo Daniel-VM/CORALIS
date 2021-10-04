@@ -14,5 +14,5 @@ nodeVisu(obj, top = NULL, type, fixedsize = TRUE)
 \item{type}{string specifying the type of visual representation. So far "network" and "barplot" are available.}
 }
 \description{
-Visualization of ncRNA-target enrichment analysis
+Visualization of ncRNA-target enrichment analysis.
 }

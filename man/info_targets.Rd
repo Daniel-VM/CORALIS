@@ -9,7 +9,7 @@ info_targets(a, b, c)
 \arguments{
 \item{a}{integer. Inherits the "min" argument from tienrich() function.}
 
-\item{b}{character string. It inherits the "type" argument from tienrich() function.}
+\item{b}{character string. Inherits the "type" argument from tienrich() function.}
 
 \item{c}{vector of target genes found for ncRNAs in the input.}
 }

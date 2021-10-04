@@ -15,5 +15,5 @@ nodeBar(obj, top)
 A object from class ggplot
 }
 \description{
-Create a barplot for visualizing the number of interactions between ncRNAs and their target genes according to the ncRNA-target enrichment analysis (see ?tienrich).
+Create a barplot to visualize the number of interactions between ncRNAs and their target genes according to the ncRNA-target enrichment analysis (see ?tienrich).
 }

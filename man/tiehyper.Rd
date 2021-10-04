@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{tiehyper}
 \alias{tiehyper}
-\title{The hypergeometric distribution test}
+\title{Hypergeometric distribution test}
 \usage{
 tiehyper(
  id,
@@ -30,11 +30,11 @@ tiehyper(
 A object from class data.frame
 }
 \description{
-Statistical source function for target enrichment analysis. The hypergeometric distribution is used to estimate the probability of having k interactions between the ncRNAs in the input of  tienrich and the target gene according to the source databases (see ?tienrich()).
+Statistical source function for target enrichment analysis. The hypergeometric distribution is used to estimate the probability of having k interactions between the ncRNAs in the input list provided to tienrich() and their target/s gene/s (see ?tienrich()).
 }
 \details{
 This function employs the hypergeometric distribution approach to compute the probability distribution of the interactions between the ncRNAs and their target genes (see ?dhyper for detailed info)[1].
-Note that this function also provides the odds ratio (OR), the relative risk (RR) as well as the standard error and their confidence intervals.
+Note that this function also provides the odds ratio (OR) as well as the standard error and their confidence intervals.
 }
 \examples{
 #Define the arguments

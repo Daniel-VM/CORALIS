@@ -15,5 +15,5 @@ info_items(k, l)
 A subset of ncRNAs IDs for which no target genes are detected.
 }
 \description{
-This function informs whether ncRNAs in the user's input list of tienrich() have target genes.
+Identification of target/s gene/s for the ncRNAs provided in the tienrich() function.
 }
