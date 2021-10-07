@@ -1,7 +1,7 @@
 import sqlite3
 
 #DB connect/create
-conn = sqlite3.connect('../data/CORALIS_db.sqlite') # Change the db name once we implement the other source files
+conn = sqlite3.connect('../inst/extdata/CORALIS_db.sqlite') # Change the db name once we implement the other source files
 cur = conn.cursor()
 
 #DB Design

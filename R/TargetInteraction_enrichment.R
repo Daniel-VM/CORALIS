@@ -18,6 +18,7 @@
 #' So far, only experimentally validated interactions listed in miRTarbase (for microRNAs-target interactions)[1] and RNAInter Database (for lncRNAs, snoRNAs or snRNAs target interactions)[2] are used as background in the enrichment analysis.
 #' Additionally, tienrich provides other interesting statistical parameters such the odds ratio (OR), the conficence intevalsand the adjusted p-value (false discovery rate -FDR- using Benjamin-Hochberg correction).
 #' @examples
+#' \dontrun{
 #'# vector of ncRNA IDs
 #'data(rnasID)
 #'head(ids)
@@ -35,6 +36,7 @@
 #'                  min = 2,fdr = 1,organism='Mus musculus',type = 'snRNA_mRNA')
 #'tar_sno<-tienrich(input_list=ids[['snoRNAs']],
 #'                  min = 2,fdr = 1,organism='Mus musculus',type = 'snoRNA_mRNA')
+#'}
 #' @references 1. Huang HY et al. 2020. miRTarBase 2020: updates to the experimentally validated microRNA-target interaction database. Nucleic Acids Res. 2020 Jan 8;48(D1):D148-D154. doi: 10.1093/nar/gkz896. PMID: 31647101; PMCID: PMC7145596.
 #' @references 2. Lin Y et al. 2020. RNAInter in 2020: RNA interactome repository with increased coverage and annotation. Nucleic Acids Res. 2020 Jan 8;48(D1):D189-D197. doi: 10.1093/nar/gkz804. PMID: 31906603; PMCID: PMC6943043.
 #' @return An object of class CoralisResult.
@@ -52,7 +54,7 @@ tienrich<-function(input_list, type, organism, min=1,  fdr=1){
 
   # SQLite connection
   lite  <- SQLite()
-  con   <- dbConnect(lite, dbname="data/CORALIS_db.sqlite")
+  con   <- dbConnect(lite, dbname="inst/extdata/CORALIS_db.sqlite")
   query <- "SELECT Genes.name AS 'genes', Ncrnas.name AS 'ncrnas'
             FROM Source JOIN Organism JOIN Ncrnas JOIN Mti JOIN Genes
             ON Ncrnas.source_id = Source.id

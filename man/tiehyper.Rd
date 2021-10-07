@@ -37,6 +37,7 @@ This function employs the hypergeometric distribution approach to compute the pr
 Note that this function also provides the odds ratio (OR) as well as the standard error and their confidence intervals.
 }
 \examples{
+\dontrun{
 #Define the arguments
 id <- "BCL2" #Gene id
 m  <- 38
@@ -47,6 +48,7 @@ nhits <- 2
 x  <- c(0:min(k,m))
 #hypergeomentric test.
 tiehyper(id = id, m = m, n = n, k = k, x = x, nhits = nhits)
+}
 }
 \references{
 1. R Core Team (2020). R: A language and environment for statistical computing. R Foundation for Statistical Computing, Vienna, Austria. URL https://www.R-project.org/.

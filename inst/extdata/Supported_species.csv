@@ -1,0 +1,11 @@
+Species,miRNA,lncRNA,snoRNA,snRNA
+Homo sapiens,380639,72377,192,844
+Mus musculus,40681,74244,52159,9754
+Caenorhabditis elegans,3183,0,0,0
+Rattus norvegicus,592,0,0,0
+Bos taurus,265,0,0,0
+Drosophila melanogaster,148,0,0,0
+Danio rerio,144,0,0,0
+Arabidopsis thaliana,96,0,0,0
+Gallus gallus,82,0,0,0
+Sus scrofa,36,0,0,0

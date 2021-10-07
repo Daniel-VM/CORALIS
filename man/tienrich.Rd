@@ -36,6 +36,7 @@ So far, only experimentally validated interactions listed in miRTarbase (for mic
 Additionally, tienrich provides other interesting statistical parameters such the odds ratio (OR), the conficence intevalsand the adjusted p-value (false discovery rate -FDR- using Benjamin-Hochberg correction).
 }
 \examples{
+\dontrun{
 # vector of ncRNA IDs
 data(rnasID)
 head(ids)
@@ -53,6 +54,7 @@ tar_sn <-tienrich(input_list=ids[['snRNAs']],
                  min = 2,fdr = 1,organism='Mus musculus',type = 'snRNA_mRNA')
 tar_sno<-tienrich(input_list=ids[['snoRNAs']],
                  min = 2,fdr = 1,organism='Mus musculus',type = 'snoRNA_mRNA')
+}
 }
 \references{
 1. Huang HY et al. 2020. miRTarBase 2020: updates to the experimentally validated microRNA-target interaction database. Nucleic Acids Res. 2020 Jan 8;48(D1):D148-D154. doi: 10.1093/nar/gkz896. PMID: 31647101; PMCID: PMC7145596.

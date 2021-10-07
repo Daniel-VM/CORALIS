@@ -9,8 +9,7 @@ nodeBar(obj, top)
 \arguments{
 \item{obj}{an object from class CoralisResult or data.frame.}
 
-\item{top}{integer indicating the top interactions to be represented in the graph.
-#' @param fixedsize Bolean. If fixedsize=True allows for interactive network, otherwise network motion is restricted.}
+\item{top}{integer indicating the top interactions to be represented in the graph.}
 }
 \value{
 A object from class ggplot

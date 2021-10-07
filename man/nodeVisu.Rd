@@ -9,15 +9,17 @@ nodeVisu(obj, top = NULL, type, fixedsize = TRUE)
 \arguments{
 \item{obj}{an object from class CoralisResult or data.frame.}
 
-\item{top}{integer indicating the top interactions to be represented in the graph.
-#' @param fixedsize Bolean. If fixedsize=True allows for interactive network, otherwise network motion is restricted.}
+\item{top}{integer indicating the top interactions to be represented in the graph.}
 
 \item{type}{string specifying the type of visual representation. So far "network" and "barplot" are available.}
+
+\item{fixedsize}{Bolean. If fixedsize=True allows for interactive network, otherwise network motion is restricted.}
 }
 \description{
 Visualization of ncRNA-target enrichment analysis.
 }
 \examples{
+\dontrun{
 # vector of ncRNA IDs
 data(rnasID)
 head(ids)
@@ -30,4 +32,5 @@ print(bar)
 # To visualize the target enrichment analysis as network graph.
 net <- nodeVisu(obj = tar_mir, top = 25, type = "network")
 print(net)
+}
 }
