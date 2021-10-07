@@ -4,7 +4,6 @@
 #' @param top integer indicating the top interactions to be represented in the graph.
 #' @param fixedsize Bolean. If fixedsize=True allows for interactive network, otherwise network motion is restricted.
 #' @importFrom networkD3 forceNetwork JS
-#' @import htmlwidgets
 #' @importFrom dplyr %>% select group_by group_split distinct
 #' @importFrom stringr str_split
 #' @importFrom scales rescale
@@ -70,10 +69,9 @@ nodeNet<-function(obj, top, fixedsize){
                Value = 'width',
                fontFamily = "mono",
                linkColour = "#A9A9A9",
-               #arrow = TRUE,
                legend = TRUE,
                opacity = 1, opacityNoHover = 1, zoom=T,
-               linkDistance = networkD3::JS("function(d) { return 10*d.value; }"),
+               linkDistance = JS("function(d) { return 10*d.value; }"),
                radiusCalculation = JS("Math.sqrt(d.nodesize)+2"),
                colourScale = JS('d3.scaleOrdinal()
                .domain(["ncRNAs", "Target genes"])
@@ -93,7 +91,7 @@ nodeBar<-function(obj, top){
     scale_fill_viridis(option  = "C",direction = 1) +
     ggtitle("Number of interactions per target gene")+
     xlab("Gene names") +
-    ylab("Nº interactions") +
+    ylab("Numbero of interactions") +
     theme(panel.border = element_blank(),
           panel.grid.major = element_blank(),
           panel.grid.minor = element_blank(),
@@ -135,7 +133,7 @@ nodeVisu <-function(obj, top=NULL, type, fixedsize=TRUE){
     obj <- obj
   }
   if(!(type %in% c("network","barplot"))){
-    stop("Invalid argument 'type'. See ?nodeVisu().")
+    stop("Invalid argument 'type'. See help('nodeVisu')")
   }
   # 2- Choosing graphics
   if(type == "network"){
