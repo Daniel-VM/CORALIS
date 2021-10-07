@@ -22,6 +22,7 @@
 #' ?tienrich and ?dhyper
 #' @return A object from class data.frame
 #' @examples
+#' \dontrun{
 #' #Define the arguments
 #' id <- "BCL2" #Gene id
 #' m  <- 38
@@ -32,6 +33,7 @@
 #' x  <- c(0:min(k,m))
 #' #hypergeomentric test.
 #' tiehyper(id = id, m = m, n = n, k = k, x = x, nhits = nhits)
+#' }
 #' @importFrom dplyr %>% mutate tibble filter
 #' @importFrom Publish table2x2
 #' @importFrom stats dhyper p.adjust

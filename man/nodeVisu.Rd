@@ -19,6 +19,7 @@ nodeVisu(obj, top = NULL, type, fixedsize = TRUE)
 Visualization of ncRNA-target enrichment analysis.
 }
 \examples{
+\dontrun{
 # vector of ncRNA IDs
 data(rnasID)
 head(ids)
@@ -31,4 +32,5 @@ print(bar)
 # To visualize the target enrichment analysis as network graph.
 net <- nodeVisu(obj = tar_mir, top = 25, type = "network")
 print(net)
+}
 }

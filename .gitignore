@@ -4,11 +4,8 @@
 .Ruserdata**
 .Rbuildignore
 **.Rproj
-inst/doc/
 bin/db_preprocess.R
 conflicts/
-data/db_files/
-data/source/
-data/hsa.gff3
+basic_data/
 tests/
 **_Tasks.md

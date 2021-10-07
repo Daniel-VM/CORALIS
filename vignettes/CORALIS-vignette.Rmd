@@ -59,7 +59,7 @@ tab.1_cap  <- table_nums(name = "Table 1",
                          caption = "Supported species in CORALIS for ncRNA-gene target enrichment analysis. Each entry indicates the number and type of ncRNA-target interaction in CORALIS by specie.")
 availsp() %>% 
   kbl(caption = tab.1_cap) %>%
-  kable_classic(full_width = F, html_font = "Cambria") 
+  kable_classic(full_width = F, html_font = "Cambria")
 ```
 
 

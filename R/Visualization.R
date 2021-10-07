@@ -112,6 +112,7 @@ nodeBar<-function(obj, top){
 #' @inheritParams nodeNet
 #' @param type string specifying the type of visual representation. So far "network" and "barplot" are available.
 #' @examples
+#' \dontrun{
 #' # vector of ncRNA IDs
 #' data(rnasID)
 #' head(ids)
@@ -124,6 +125,7 @@ nodeBar<-function(obj, top){
 #' # To visualize the target enrichment analysis as network graph.
 #' net <- nodeVisu(obj = tar_mir, top = 25, type = "network")
 #' print(net)
+#' }
 #' @export
 nodeVisu <-function(obj, top=NULL, type, fixedsize=TRUE){
   # 1.1 Parsing inputs
