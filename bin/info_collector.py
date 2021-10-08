@@ -21,7 +21,7 @@ with open('mti_urls.json') as j_file:
     data = json.load(j_file)
 
 ## MIRTARBASE
-mirtarbase = requests.get(data['miRTarbase'], allow_redirects=False)
+mirtarbase = requests.get(data['miRTarbase'])
 with open(os.path.join(outsource_dir, r'mirtarbase_all.xlsx').replace( '\\','/'), 'wb') as f_mirtarbase:
     f_mirtarbase.write(mirtarbase.content)
 print("\nMIRTARBASE done \n")

@@ -1,5 +1,5 @@
 {
-    "miRTarbase":"http://mirtarbase.cuhk.edu.cn/cache/download/8.0/miRTarBase_MTI.xlsx",
+    "miRTarbase":"https://mirtarbase.cuhk.edu.cn/~miRTarBase/miRTarBase_2022/cache/download/8.0/miRTarBase_MTI.xlsx",
     "NPInter":"http://bigdata.ibp.ac.cn/npinter4/download/file/interaction_NPInterv4.expr.txt.gz",
-    "RAID":"http://www.rna-society.org/raid/download/browse/"
+    "RAID":"http://www.rna-society.org/rnainter3/download/browse/"
 }
