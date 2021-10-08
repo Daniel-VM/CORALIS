@@ -29,8 +29,13 @@ devtools::install_github("Daniel-VM/CORALIS")
 ## Example
 
 This is a basic example which shows you how to solve a common problem:
+```{r setup, include = FALSE, message=FALSE}
+devtools::document()
+```
+
 
 ```{r example}
+# LOAD PACKAGES
 library(CORALIS)
 
 # Load ncRNA IDs data
@@ -45,7 +50,7 @@ head(ids[["miRNAs"]])
 tar_mir<-tienrich(input_list=ids[['miRNAs']], min = 2, fdr = 1, organism='Homo sapiens', type = 'miRNA_mRNA')
 
 # View target enrichment analysis output
-View(tar_mir)
+# View(tar_mir)
 
 # Output visualization
 bar <- nodeVisu(obj = tar_mir,
@@ -56,6 +61,6 @@ net <- nodeVisu(obj = tar_mir,
                 top = 25, 
                 fixedsize = FALSE, # if true, deafult node size is fixed
                 type = "network") %>% print
-
 ```
 
+![Figure](vignettes/nodevisu_net.PNG)
