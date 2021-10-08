@@ -5,3 +5,4 @@
 ^README\.Rmd
 ^bin/
 ^data/basic_data/
+^config/

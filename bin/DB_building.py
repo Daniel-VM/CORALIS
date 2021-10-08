@@ -1,10 +1,17 @@
+##
+##     DB_building.py
+##
+##   
+##   The DB_building.py script imports sqlite3 to build a noncodingRNA-target interaction database following a relational design.
+##   This will improve the performancy of CORALIS by searching interactions throught SQL queries. 
+##
 import sqlite3
 
-#DB connect/create
-conn = sqlite3.connect('../inst/extdata/CORALIS_db.sqlite') # Change the db name once we implement the other source files
+## DB connection/creating
+conn = sqlite3.connect('../inst/extdata/CORALIS_db.sqlite')
 cur = conn.cursor()
 
-#DB Design
+## Set up design
 cur.executescript('''
 DROP TABLE IF EXISTS Genes;
 DROP TABLE IF EXISTS Ncrnas;
@@ -36,34 +43,31 @@ CREATE TABLE Mti(
 )
 ''')
 
-#Load DB source file
+## LOAD SOURCE FILE/S
 fname = input('Enter file name: ')
 if len(fname) < 1:
-    fname="../data/db_files/mirtarbase_raid.csv"
+    fname="../data/basic_data/db_files/mirtarbase_raid.csv"
 
 with open(fname, 'r') as f_data:
     str_data = f_data.readlines()
 
-#Database population
+## POPULATE DB
+print("Building DataBase...")
 cc = 0 
 for row in str_data:
-    # Avoid table's headers (first row in the input file)
+    # Avoid table's headers
     if cc == 0:
         cc+=1
         continue
         
-    #Set gene, ncrnas and organism items
+    # Set gene, ncrnas and organism items
     row=row.split(",")
     ncrna=row[0]
     gene=row[1]
     organism=row[2]
-    #typ=row[3]
     source=row[3]
-    #source=' '.join(row[5:]).rstrip("\n")
-    print(gene)
-    print(organism)
-
-    #SOURCE
+    
+    # SOURCE
     cur.execute('''
     INSERT OR IGNORE INTO Source (name) VALUES (?)
     ''', (source,))
@@ -73,7 +77,7 @@ for row in str_data:
     )
     source_id=cur.fetchone()[0]
 
-    #ORGANISM
+    # ORGANISM
     cur.execute('''
     INSERT OR IGNORE INTO Organism (name) VALUES (?)
     ''', (organism,)
@@ -84,7 +88,7 @@ for row in str_data:
     )
     organism_id=cur.fetchone()[0]
 
-    #ncRNA
+    # ncRNA
     cur.execute('''
     INSERT OR IGNORE INTO Ncrnas (name, organism_id, source_id) VALUES (?,?,?)
     ''', (ncrna, organism_id, source_id,)
@@ -95,7 +99,7 @@ for row in str_data:
     )
     ncrna_id=cur.fetchone()[0]
 
-    #GENE
+    # GENE
     cur.execute('''
     INSERT OR IGNORE INTO Genes (name) VALUES (?)
     ''', (gene,)
@@ -106,26 +110,13 @@ for row in str_data:
     )
     gene_id=cur.fetchone()[0]
 
-    #MTI
+    # MTI
     cur.execute('''
     INSERT OR IGNORE INTO Mti (ncrna_id, gene_id) VALUES (?,?)
     ''', (ncrna_id, gene_id,)
     )
- 
-# The lines below were used in earlier versions of CORALIS to remove duplicated interactions directly from the sqlite database.
-# Now, these lines have been replaced by the dplyr::distinct() function in the db_preprocess.R to remove duplicated interactions found by different methods.
 
-#cur.executescript('''
-#CREATE TABLE temp(
-#    ncrna_id    INTEGER,
-#    gene_id     INTEGER);
-#INSERT INTO temp SELECT DISTINCT * FROM Mti;
-#DROP TABLE Mti;
-#ALTER TABLE temp RENAME TO Mti
-#''')
-    
-
-#DONE
-print("DONE ;)")
+## DONE
+print("CORALIS's database has been created. \nBye\n")
 conn.commit()
 conn.close()
