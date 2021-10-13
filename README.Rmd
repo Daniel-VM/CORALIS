@@ -18,9 +18,9 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of CORALIS is to statistically analyze the interactions between non-coding RNA and their target genes . To this end CORALIS gathers experimentally validated interactions from miRTarbase and RNAInter database into a single database that will work as background when performing the analysis. The hypergeometric distribution test has been chosen to determine enriched target genes given a list of non-coding RNAs in [miRBase](http://www.mirbase.org/search.shtml) format for microRNA-target enrichment analysis (ie: 'hsa-miR-3196') or [Official Gene Symbol](https://www.genenames.org/) format for the rest of ncRNAs (i.e: 'RUNX2'). 
+The goal of CORALIS is to analyze the interactions between non-coding RNA (ncRNA) and their target genes (mRNA). To this end CORALIS gathers experimentally validated records (ncRNA - mRNA interactions) from miRTarbase and RNAInter into a single SQL database that will be used as as background during the analysis. CORALIS uses the hypergeometric distribution test to determine enriched target genes given a list of non-coding RNAs in [miRBase](http://www.mirbase.org/search.shtml) format for microRNA-target enrichment analysis (ie: 'hsa-miR-3196') or [Official Gene Symbol](https://www.genenames.org/) format for the rest of ncRNAs (i.e: 'RUNX2'). 
 
-You can install both the released and the development version of CORALIS from [GitHub](https://github.com/) with:
+You can install both the released and the development version of CORALIS from [GitHub](https://github.com/Daniel-VM/CORALIS) with:
 
 ``` r
 # install.packages("devtools")
@@ -28,7 +28,7 @@ devtools::install_github("Daniel-VM/CORALIS")
 ```
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+This is a basic example in R which shows you how to solve a common problem:
 ```{r setup, include = FALSE, message=FALSE}
 devtools::document()
 ```
@@ -38,29 +38,33 @@ devtools::document()
 # LOAD PACKAGES
 library(CORALIS)
 
-# Load ncRNA IDs data
+# LOAD TEST DATASET
 data(rnasID)
-# help("ids")
-head(ids)
 
-# Run target enrichment analysis using as input a set of microARN IDs:
+# SET OF HUMAN microRNA IDs
 head(ids[["miRNAs"]])
 
-# Execute enrcichment statistics with tienrich
-tar_mir<-tienrich(input_list=ids[['miRNAs']], min = 2, fdr = 1, organism='Homo sapiens', type = 'miRNA_mRNA')
+# RUN microRNA TARGET ENRICHMENT ANALYSIS WITH tienrich()
+tar_mir <- tienrich(input_list=ids[['miRNAs']], min = 2, fdr = 1, organism='Homo sapiens', type = 'miRNA_mRNA')
 
-# View target enrichment analysis output
-# View(tar_mir)
+# OUTPUT 1 (microRNA-target analysis output)
+head(tar_mir@results)
 
-# Output visualization
-bar <- nodeVisu(obj = tar_mir,
-                top=25,
-                type = "barplot") %>% print
+# OUTPUT 2 (microRNA in the input with no target records)
+head(tar_mir@not_found)
 
-net <- nodeVisu(obj = tar_mir, 
-                top = 25, 
-                fixedsize = FALSE, # if true, deafult node size is fixed
-                type = "network") %>% print
+# VISUALIZATION OF microRNA-TARGET ENRICHMENT ANALYSIS
+nodeVisu(obj = tar_mir,
+         top=25,
+         type = "barplot")
+
+
+```
+```{r eval=FALSE}
+nodeVisu(obj = tar_mir, 
+         top = 25, 
+         fixedsize = FALSE, # if true, default node size is fixed
+         type = "network")
 ```
 
 ![Figure](vignettes/nodevisu_net.PNG)
