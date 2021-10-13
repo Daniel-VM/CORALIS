@@ -36,17 +36,17 @@ devtools::document()
 
 # 1. CORALIS
 
-CORALIS is a package for non-coding RNA target enrichment analysis exclusively based on experimentally validated interactions. This package allows for the identification of enriched target genes given a list of ncRNAs defined by the user. To do so, CORALIS access to [miRTarbase](http://mirtarbase.cuhk.edu.cn/php/index.php) and [RNAInter database](http://www.rna-society.org/rnainter/) and retrieves the information associated with experimentally supported interactions between ncRNAs and their gene targets. So far, CORALIS supports miRNA, lncRNA, snRNA and snoRNA target enrichment analysis for several species such as *Homo sapiens*, *Rattus norvegicus*, *Caenorhabditis elegans* and *Drosophila melanogaster*, among others. 
+CORALIS is a R package for non-coding RNA target enrichment analysis exclusively based on experimentally validated interactions. This package allows for the identification of enriched target genes given a list of ncRNAs defined by the user. To do so, CORALIS access to [miRTarbase](http://mirtarbase.cuhk.edu.cn/php/index.php) and [RNAInter database](http://www.rna-society.org/rnainter/) and retrieves records associated with experimentally supported interactions between ncRNAs and their gene targets. So far, CORALIS supports miRNA, lncRNA, snRNA and snoRNA target enrichment analysis for several species such as *Homo sapiens*, *Rattus norvegicus*, *Caenorhabditis elegans* and *Drosophila melanogaster*, among others. 
 
 
 # 2. State of Art
 
-Non-coding RNAs (ncRNAs) are RNA molecules involved in epigenetic modifications by interacting and modulating the complex molecular and cellular processes. The combination of RNA large-scale sequencing and computational analyses has revealed the existence of a vast diversity of RNA species with essential roles in biological functions. In accordance with their sequence length, ncRNAs are classified into two groups: small ncRNAs (sncRNAs) (<200 nts) such as snoRNAs, snRNAs, miRNAs, etc.; and long ncRNAs (ncRNAs) (>200 nts) [1]. Whereas in the past ncRNAs were considered as intracellular waste, nowadays they are under the spotlight for researchers since they have been found to be involved in the modulation of relevant signalling pathways and almost all molecular processes by altering chromatin modification, gene expression and protein-protein interactions, among others.  
+Non-coding RNAs (ncRNAs) are RNA molecules involved gene expression regulation by interacting and modulating the complex molecular and cellular processes. The combination of RNA large-scale sequencing and computational analyses has revealed the existence of a vast diversity of RNA species with essential roles in biological functions. In accordance with their sequence length, ncRNAs are classified into two groups: small ncRNAs (sncRNAs) (<200 nts) such as snoRNAs, snRNAs, miRNAs, etc.; and long ncRNAs (ncRNAs) (>200 nts) [1]. Whereas in the past ncRNAs were considered as intracellular waste, nowadays they are under the spotlight for researchers since they have been found to be involved in the modulation of relevant signalling pathways and almost all molecular processes by altering chromatin modification, gene expression and protein-protein interactions, among others.  
 
 Therefore, the accumulating evidence show us that the ncRNA analysis has become a challenge, with an urgent need of a more sensitive and comprehensive ncRNA annotation and functional interaction analysis. The available information of ncRNA-gene target interactions is stored in multiple different databases and data warehouses. In parallel with the development of new target interaction prediction algorithms, the amount of interactions listed in those repositories have grown enormously. Dealing with this huge network of interactions becomes a much harder task due to the nature of ncRNA-target interactions in which a single ncRNA blocks the expression of multiple gene, and in turn, a single gene can be targeted by several ncRNAs.
 
 
-Here we present **CORALIS**, a Bioconductor package focused on the statistical analysis of ncRNA-target validated interactions and visualization. CORALIS allows the identification of potential target genes for a variety of ncRNAs for different species.
+Here we present **CORALIS**, a R package focused on the statistical analysis of ncRNA-target validated interactions and visualization. CORALIS allows the identification of potential target genes for a variety of ncRNAs for different species.
 
 
 **Table 1** shows the type of ncRNAs and species supported in **CORALIS**, as well as the number of experimentally validated interactions. 
@@ -103,13 +103,11 @@ $$OR=\frac{(\frac{a}{b})}{(\frac{c}{d})}$$
 
 # 4. Installation and package loading 
 
-Run the following lines to install CORALIS if needed.
+You can install both the released and the development version of CORALIS from [GitHub](https://github.com/Daniel-VM/CORALIS) with:
 
 ```{r Installation, eval=FALSE}
-if (!requireNamespace("BiocManager", quietly = TRUE))
-    install.packages("BiocManager")
-
-BiocManager::install("CORALIS")
+# install.packages("devtools")
+devtools::install_github("Daniel-VM/CORALIS")
 
 ```
 
@@ -144,7 +142,7 @@ Our aim here is to identify which genes can be potential enriched targets for th
 # Load rnasID object 
 data("rnasID")
 
-# rnasID contains the IDs of several ncRNAs. In this example we are going to choose 50 miRNAs list where the first five IDs are miRNAs with miRNAs with significantly higher expression levels after treatment (deferentially expressed miRNAs).
+# rnasID contains the IDs of several ncRNAs (See: help(ids)). In this example we are going to choose 50 miRNAs where the first five have significantly higher expression levels after treatment (deferentially expressed miRNAs).
 mirs<-ids[["miRNAs"]][1:5]
 head(mirs)
 
@@ -219,7 +217,7 @@ This graphical representation provides a more detailed information on the intera
 # Interactive 3D network
 net <- nodeVisu(obj = genetar, 
                 top = 25, 
-                fixedsize = FALSE, # if true, deafult node size is fixed
+                fixedsize = FALSE, # if true, default node size is fixed
                 type = "network")
 net
 ```
