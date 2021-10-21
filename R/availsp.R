@@ -8,6 +8,6 @@
 #' @return  An object of class data.frame
 #' @export
 availsp<-function(){
-  f<-read.table("inst/extdata/Supported_species.csv", sep=",", header =T)
-  return(f)
+  data("targetsummary")
+  return(intersummary)
 }

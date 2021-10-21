@@ -36,7 +36,7 @@ devtools::document()
 
 # 1. CORALIS
 
-CORALIS is a R package for non-coding RNA target enrichment analysis exclusively based on experimentally validated interactions. This package allows for the identification of enriched target genes given a list of ncRNAs defined by the user. To do so, CORALIS access to [miRTarbase](http://mirtarbase.cuhk.edu.cn/php/index.php) and [RNAInter database](http://www.rna-society.org/rnainter/) and retrieves records associated with experimentally supported interactions between ncRNAs and their gene targets. So far, CORALIS supports miRNA, lncRNA, snRNA and snoRNA target enrichment analysis for several species such as *Homo sapiens*, *Rattus norvegicus*, *Caenorhabditis elegans* and *Drosophila melanogaster*, among others. 
+CORALIS is an R package for non-coding RNA target enrichment analysis exclusively based on experimentally validated interactions. This package allows for the identification of enriched target genes given a list of ncRNAs defined by the user. To do so, CORALIS access to [miRTarbase](http://mirtarbase.cuhk.edu.cn/php/index.php) and [RNAInter database](http://www.rna-society.org/rnainter/) and retrieves records associated with experimentally supported interactions between ncRNAs and their gene targets. So far, CORALIS supports miRNA, lncRNA, snRNA and snoRNA target enrichment analysis for several species such as *Homo sapiens*, *Rattus norvegicus*, *Caenorhabditis elegans* and *Drosophila melanogaster*, among others. 
 
 
 # 2. State of Art
@@ -46,7 +46,7 @@ Non-coding RNAs (ncRNAs) are RNA molecules involved gene expression regulation b
 Therefore, the accumulating evidence show us that the ncRNA analysis has become a challenge, with an urgent need of a more sensitive and comprehensive ncRNA annotation and functional interaction analysis. The available information of ncRNA-gene target interactions is stored in multiple different databases and data warehouses. In parallel with the development of new target interaction prediction algorithms, the amount of interactions listed in those repositories have grown enormously. Dealing with this huge network of interactions becomes a much harder task due to the nature of ncRNA-target interactions in which a single ncRNA blocks the expression of multiple gene, and in turn, a single gene can be targeted by several ncRNAs.
 
 
-Here we present **CORALIS**, a R package focused on the statistical analysis of ncRNA-target validated interactions and visualization. CORALIS allows the identification of potential target genes for a variety of ncRNAs for different species.
+Here we present **CORALIS**, an R package focused on the statistical analysis of ncRNA-target validated interactions and visualization. CORALIS allows the identification of potential target genes for a variety of ncRNAs for different species.
 
 
 **Table 1** shows the type of ncRNAs and species supported in **CORALIS**, as well as the number of experimentally validated interactions. 
