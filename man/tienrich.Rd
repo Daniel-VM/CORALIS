@@ -61,9 +61,6 @@ tar_sno<-tienrich(input_list=ids[['snoRNAs']],
 
 2. Lin Y et al. 2020. RNAInter in 2020: RNA interactome repository with increased coverage and annotation. Nucleic Acids Res. 2020 Jan 8;48(D1):D189-D197. doi: 10.1093/nar/gkz804. PMID: 31906603; PMCID: PMC6943043.
 }
-\seealso{
-CORALIS::tiehyper()
-}
 \author{
 Daniel Valle-Millares
 }

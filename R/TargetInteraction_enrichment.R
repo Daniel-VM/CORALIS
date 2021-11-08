@@ -41,7 +41,6 @@
 #' @references 2. Lin Y et al. 2020. RNAInter in 2020: RNA interactome repository with increased coverage and annotation. Nucleic Acids Res. 2020 Jan 8;48(D1):D189-D197. doi: 10.1093/nar/gkz804. PMID: 31906603; PMCID: PMC6943043.
 #' @return An object of class CoralisResult.
 #' @author Daniel Valle-Millares
-#' @seealso CORALIS::tiehyper()
 #' @importFrom dplyr filter %>% mutate tibble rename select arrange pull
 #' @importFrom RSQLite SQLite
 #' @importFrom DBI dbConnect dbGetQuery dbDisconnect
@@ -51,10 +50,15 @@
 tienrich<-function(input_list, type, organism, min=1,  fdr=1){
   # Input processing
   info_args(a = input_list, b = type, c = organism, e = min)
-
+  .onLoad = function (libname, pkgname) {
+    datafile = system.file("extdata", "CORALIS_db.sqlite", package = "CORALIS")
+    assign('datafile', datafile, envir = .GlobalEnv)
+  }
   # SQLite connection
+  #db_file <- system.file("extdata", "CORALIS_db.sqlite", package = "CORALIS")
   lite  <- SQLite()
-  con   <- dbConnect(lite, dbname="inst/extdata/CORALIS_db.sqlite")
+  con   <- dbConnect(lite, dbname = .onLoad())
+  #con   <- dbConnect(lite, dbname = db_file)
   query <- "SELECT Genes.name AS 'genes', Ncrnas.name AS 'ncrnas'
             FROM Source JOIN Organism JOIN Ncrnas JOIN Mti JOIN Genes
             ON Ncrnas.source_id = Source.id
@@ -77,8 +81,8 @@ tienrich<-function(input_list, type, organism, min=1,  fdr=1){
                                                 ON Ncrnas.source_id = Source.id
                                                 AND Ncrnas.organism_id = Organism.id
                                                 WHERE Source.name = ", type, " AND Organism.name = ", org)))
-  dbDisconnect(con) # closing database connection
 
+  dbDisconnect(con) # closing database connection
   # Get info from items in the input list
   nf <- info_items(k= my_mti$ncrnas, l=input_list)
 

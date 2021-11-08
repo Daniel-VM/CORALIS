@@ -8,6 +8,7 @@
 #' @return  An object of class data.frame
 #' @export
 availsp<-function(){
-  data("targetsummary")
-  return(intersummary)
+  int_summary_file <- system.file("extdata", "Supported_species.csv", package = "CORALIS")
+  int_summary <- read.csv(file = int_summary_file)
+  return(int_summary)
 }
