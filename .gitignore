@@ -1,12 +1,5 @@
-.Rproj.user
-.Rhistory**
-.RData**
-.Ruserdata**
-.Rbuildignore
+.R*
 **.Rproj
-bin/
 conflicts/
-data/basic_data/
-tests/
-**_Tasks.md
 config/
+nextflow*
