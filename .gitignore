@@ -1,5 +1,5 @@
 .R*
 **.Rproj
 conflicts/
-config/
+test/
 nextflow*
