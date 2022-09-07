@@ -4,9 +4,9 @@
 .Ruserdata**
 .Rbuildignore
 **.Rproj
-bin/
+bin
 conflicts/
 data/basic_data/
-tests/
+test/
 **_Tasks.md
 config/

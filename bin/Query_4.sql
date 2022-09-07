@@ -36,7 +36,7 @@ AND Mti.gene_id = Genes.id
 GROUP BY Source.name
 
 ---By specie query---
-SELECT Ncrnas.name
+SELECT Ncrnas.name, 
 FROM Source JOIN Organism JOIN Ncrnas JOIN Mti JOIN Genes
 ON Ncrnas.source_id = Source.id
 AND Ncrnas.organism_id = Organism.id
@@ -52,14 +52,14 @@ ON Ncrnas.source_id = Source.id
 AND Ncrnas.organism_id = Organism.id
 AND Mti.ncrna_id = Ncrnas.id
 AND Mti.gene_id = Genes.id
-WHERE Source.name = 'snoRNA_mRNA' AND Organism.name = 'Mus musculus'
+WHERE Source.name = 'snoRNA_mRNA' AND .name = 'Mus musculus'
 
 
 
-SELECT Ncrnas.name, Genes.name
+SELECT Ncrnas.name, Genes.name, Source.name, Organism.name
 FROM Source JOIN Organism JOIN Ncrnas JOIN Mti JOIN Genes
 ON Ncrnas.source_id = Source.id
 AND Ncrnas.organism_id = Organism.id
 AND Mti.ncrna_id = Ncrnas.id
 AND Mti.gene_id = Genes.id
-WHERE Source.name = 'snoRNA_mRNA' AND Organism.name = 'Mus musculus'
+WHERE Ncrnas.name = 'U1' AND Organism.name = 'Homo sapiens'

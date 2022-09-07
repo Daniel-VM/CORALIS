@@ -50,15 +50,15 @@
 tienrich<-function(input_list, type, organism, min=1,  fdr=1){
   # Input processing
   info_args(a = input_list, b = type, c = organism, e = min)
-  .onLoad = function (libname, pkgname) {
-    datafile = system.file("extdata", "CORALIS_db.sqlite", package = "CORALIS")
-    assign('datafile', datafile, envir = .GlobalEnv)
-  }
+  #.onLoad = function (libname, pkgname) {
+  #  datafile = system.file("extdata", "CORALIS_db.sqlite", package = "CORALIS")
+  #  assign('datafile', datafile, envir = .GlobalEnv)
+  #}
   # SQLite connection
-  #db_file <- system.file("extdata", "CORALIS_db.sqlite", package = "CORALIS")
+  db_file <- system.file("extdata", "CORALIS_db.sqlite", package = "CORALIS")
   lite  <- SQLite()
-  con   <- dbConnect(lite, dbname = .onLoad())
-  #con   <- dbConnect(lite, dbname = db_file)
+  #con   <- dbConnect(lite, dbname = .onLoad())
+  con   <- dbConnect(lite, dbname = db_file)
   query <- "SELECT Genes.name AS 'genes', Ncrnas.name AS 'ncrnas'
             FROM Source JOIN Organism JOIN Ncrnas JOIN Mti JOIN Genes
             ON Ncrnas.source_id = Source.id

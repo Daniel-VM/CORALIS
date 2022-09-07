@@ -70,13 +70,13 @@ nodeNet<-function(obj, top, fixedsize){
                fontFamily = "mono",
                linkColour = "#A9A9A9",
                legend = TRUE,
-               fontSize = 18,
+               fontSize = 15,
                opacity = 1, opacityNoHover = 1, zoom=T,
-               linkDistance = 80, # JS("function(d) { return 10*d.value; }"),
-               radiusCalculation = JS("Math.sqrt(d.nodesize)+2"),
+               linkDistance = 200, # JS("function(d) { return 10*d.value; }"),
+               radiusCalculation = JS("Math.sqrt(d.nodesize)+4"),
                colourScale = JS('d3.scaleOrdinal()
                .domain(["ncRNAs", "Target genes"])
-               .range(["#008000", "#000000"]);')) %>% return(.)
+               .range(["#6a0dad", "#e38e00"]);')) %>% return(.)
 }
 #' @title nodeBar
 #' @description Create a barplot to visualize the number of interactions between ncRNAs and their target genes according to the ncRNA-target enrichment analysis (see ?tienrich).
