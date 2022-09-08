@@ -134,7 +134,7 @@ The *tienrich()* function in CORALIS allows target enrichment analysis given a l
 
 ## 5.1 CORALIS example - Human microRNA dataset
 
-Let’s imagine that we are analyzing the expression profile of ncRNAs, for example microRNAs (miRNAs), in a human specific cell type before and after certain treatment. Suppose for example that we obtain 5 out of 50 miRNAs with significantly higher expression levels after treatment. The next step would normally be to analyze the potential effect of these 5 deregulated miRNAs might promote on target genes and whether they belong to the same pathway. Therefore, **CORALIS** can be used to determine the potential target genes that may be enriched from an input list and their associated pathways.
+Let’s imagine that we are analyzing the expression profile of ncRNAs, for example microRNAs (miRNAs), in a human specific cell type before and after certain treatment. Suppose for example that we obtain 9 out of 50 miRNAs with significantly higher expression levels after treatment. The next step would normally be to analyze the potential effect of these 9 deregulated miRNAs might promote on target genes and whether they belong to the same pathway. Therefore, **CORALIS** can be used to determine the potential target genes that may be enriched from an input list and their associated pathways.
 
 Our aim here is to identify which genes can be potential enriched targets for these miRNAs. To do this we load an object containing 50 miRNAs IDs in ([miRBase id format](http://www.mirbase.org/search.shtml)). Among them, the 5 first items correspond to the deregulated miRNAs.
 
@@ -143,7 +143,7 @@ Our aim here is to identify which genes can be potential enriched targets for th
 data("rnasID")
 
 # rnasID contains the IDs of several ncRNAs (See: help(ids)). In this example we are going to choose 50 miRNAs where the first five have significantly higher expression levels after treatment (deferentially expressed miRNAs).
-mirs<-ids[["miRNAs"]][1:5]
+mirs<-ids[["miRNAs"]][1:9]
 head(mirs)
 
 ```
@@ -201,11 +201,11 @@ With the *type* argument the graphic format is specified.
 
 * A) If *type* = "barplot" it creates a barplot for visualizing the number of interactions that top target genes have with the ncRNAs in the input. 
 
-We will now visually explore the result of the miRNA-target enrichment analysis for the top 25 target genes. The following bar chart represents on the y-axis the name of the target genes, and on the x-axis the number of interactions that each of these genes has with the ncRNAs in the input. The gradient indicates the FDR of the enrichment analysis.
+We will now visually explore the result of the miRNA-target enrichment analysis for the top 30 target genes. The following bar chart represents on the y-axis the name of the target genes, and on the x-axis the number of interactions that each of these genes has with the ncRNAs in the input. The gradient indicates the FDR of the enrichment analysis.
 
 ```{r Target_barplot}
 # Barplot of targets genes
-bar <- nodeVisu(obj = genetar,top = 25, type = "barplot")
+bar <- nodeVisu(obj = genetar,top = 30, type = "barplot")
 print(bar)
 ```
 
@@ -216,7 +216,7 @@ This graphical representation provides a more detailed information on the intera
 ```{r Target_network}
 # Interactive 3D network
 net <- nodeVisu(obj = genetar, 
-                top = 25, 
+                top = 30, 
                 fixedsize = FALSE, # if true, default node size is fixed
                 type = "network")
 net
@@ -242,7 +242,7 @@ gene <- genetar@results$Gene_symbol[1:25] # top 25 targets
 
 # Use Homo sapiens dataset
 ensembl <-useDataset("hsapiens_gene_ensembl",
-                     mart = useMart("ensembl"))
+                     mart = useEnsembl("ensembl","oaries_gene_ensembl"))
 
 # Get the gene IDs
 gene_id <- unique(getBM(attributes = c("hgnc_symbol", "entrezgene_id"),    
@@ -265,37 +265,35 @@ head(s_biopro, n = 10)
 
 ```
 
-The functional analysis revealed 14 biological processes significantly altered by the deferentially expressed miRNAs after the treatment. Specifically the miRNAs enriched target genes ABCC1(4363), AK4(205), DVL3(1857), ICAM1(3383) and PPARGC1A (10891) play role in [GO:0042493](https://www.ebi.ac.uk/QuickGO/term/GO:0042493). This GO term encompasses any process related to alterations in cellular state and/or activities as a consequence of drug stimulus.
+The functional analysis revealed 9 biological processes significantly altered by the deferentially expressed miRNAs after the treatment. Specifically the miRNAs enriched target genes ABCC1 (entrezID:4363), GRM5 (entrezID:2915) and ICAM1 (entrezID:3383) play role in [GO:1904646](https://www.ebi.ac.uk/QuickGO/term/GO:1904646). This GO term encompasses any process related to processes that results in alterations of cell activity as a consequence of a amyloid-beta stimulus.
 
 ```{r GOterm_inspect}
-# Filter the miRNA target enrichment matrix to identify the miRNAs involved in the deregulation of genes in GO:0042493
-genes_go0042493_entrezid <- subset(s_biopro, ID == "GO:0042493") %>%
+# Filter the miRNA target enrichment matrix to identify the miRNAs involved in the deregulation of genes in GO:1904646
+genes_go1904646_entrezid <- subset(s_biopro, ID == "GO:1904646") %>%
                             dplyr::select(., geneID) %>%
                             str_split(., "/", simplify = FALSE) %>%
                             unlist(.)
 
-genes_go0042493_symbol <- subset(gene_id, entrezgene_id %in% genes_go0042493_entrezid) %>% 
+genes_go1904646_symbol <- subset(gene_id, entrezgene_id %in% genes_go1904646_entrezid) %>% 
                           dplyr::select(., hgnc_symbol) %>% 
                           pull(.)
 
-# Fin the miRNAs involved in the regulation of genes in GO:0042493
-mirnas_go0042493<- subset(genetar@results, Gene_symbol %in% genes_go0042493_symbol)
-mirnas_go0042493
+# Fin the miRNAs involved in the regulation of genes in GO:1904646
+mirnas_go1904646<- subset(genetar@results, Gene_symbol %in% genes_go1904646_symbol)
+mirnas_go1904646
 ```
-We can now individually analyze whether the significant enriched target genes from the input list are significantly involved in a specific GO term, such as the GO:0042493.
-This information can be depicted in a 3D network of interactions where the genes within a specific GO term and their related miRNAs are represented.
+We can now individually analyze whether the significant enriched target genes from the input list are significantly involved in a specific GO term, such as the GO:1904646.
+This information can be depicted in  network of interactions where the genes within a specific GO term and their related miRNAs are represented.
 
 ```{r}
-# Plot 3D network of interactions between genes in GO:0042493 and the deregulated miRNAs.
-net_go0042493<- nodeVisu(obj = mirnas_go0042493,
+# Plot 3D network of interactions between genes in GO:1904646 and the deregulated miRNAs.
+net_go1904646<- nodeVisu(obj = mirnas_go1904646,
                          type= "network")
-net_go0042493
+net_go1904646
 ```
-
-
 # 6. CONCLUSION
 
-In conclusion, CORALIS helps to analyze the complex regulatory network between ncRNAs and their target genes. In this example we have carried out miRNA-target enrichment analysis in humans, but CORALIS supports other ncRNA-target enrichment analysis such lncRNAs, snRNAs or snoRNAs, as well as different species. Furthermore, CORALIS’s functionalities are enhanced when it is used in conjunction with other packages that allows to determine functional consequences derived from the regulation of ncRNAs on their target genes. In further versions, CORALIS will include a wider range of ncRNAs, species, graphs and additional databases for interaction networks.
+In conclusion, CORALIS helps to analyze the complex regulatory network between ncRNAs and their target genes. In this example we have carried out miRNA-target enrichment analysis in humans, but CORALIS supports other ncRNA-target enrichment analysis such lncRNAs, snRNAs or snoRNAs, as well as different species. Furthermore, CORALIS’s functionalities are enhanced when it is used in conjunction with other packages that allows functional analysis derived from the regulation of ncRNAs on their target genes. In further versions, CORALIS will include a wider range of ncRNAs, species, graphs and additional databases for interaction networks.
 
 # 7. SESSION INFORMATION
 

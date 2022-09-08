@@ -26,9 +26,9 @@ You can install both the released and the development version of CORALIS from [G
 # install.packages("devtools")
 devtools::install_github("Daniel-VM/CORALIS")
 ```
-## Example
+## USAGE
 
-This is a basic example in R which shows you how to solve a common problem:
+This is a basic example in R which shows you how to solve a common problem. 
 ```{r setup, include = FALSE, message=FALSE}
 devtools::document()
 ```
@@ -60,6 +60,7 @@ nodeVisu(obj = tar_mir,
 
 
 ```
+
 ```{r eval=FALSE}
 nodeVisu(obj = tar_mir, 
          top = 25, 
@@ -68,3 +69,12 @@ nodeVisu(obj = tar_mir,
 ```
 
 ![Figure](vignettes/nodevisu_net.PNG)
+
+## Case-stude example
+
+Case-study example and further information about CORALIS is available CORAILS vignettes (preferred web browsers: Google Chrome and Mozilla Firefox). 
+
+```{r eval=FALSE}
+browseVignettes("CORALIS")
+```
+

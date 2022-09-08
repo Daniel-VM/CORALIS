@@ -48,16 +48,13 @@
 #' @importFrom stats p.adjust
 #' @export
 tienrich<-function(input_list, type, organism, min=1,  fdr=1){
+
   # Input processing
   info_args(a = input_list, b = type, c = organism, e = min)
-  #.onLoad = function (libname, pkgname) {
-  #  datafile = system.file("extdata", "CORALIS_db.sqlite", package = "CORALIS")
-  #  assign('datafile', datafile, envir = .GlobalEnv)
-  #}
+
   # SQLite connection
   db_file <- system.file("extdata", "CORALIS_db.sqlite", package = "CORALIS")
   lite  <- SQLite()
-  #con   <- dbConnect(lite, dbname = .onLoad())
   con   <- dbConnect(lite, dbname = db_file)
   query <- "SELECT Genes.name AS 'genes', Ncrnas.name AS 'ncrnas'
             FROM Source JOIN Organism JOIN Ncrnas JOIN Mti JOIN Genes
@@ -129,10 +126,11 @@ tienrich<-function(input_list, type, organism, min=1,  fdr=1){
                               #RR, RR.SE, RR.IC.low, RR.IC.upper
                               )
 
-  # This stores ncRNA-target enrichment analysis into a object from  class 'CoralisResult'
-  setClass("CoralisResult", slots = list(results="data.frame", not_found=c("character", NULL)))
+    # This stores ncRNA-target enrichment analysis into a object from  class CoralisResult
+  setClass("CoralisResult", slots = list(results="data.frame", not_found=c("character", NULL)),where = new.env())
   out<-new(Class = "CoralisResult", results = enrichment, not_found = nf)
 
   message("\nAnalysis complete\n")
   return(out)
+
 }

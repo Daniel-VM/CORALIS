@@ -3,3 +3,4 @@
 conflicts/
 test/
 nextflow*
+.Rproj.user
