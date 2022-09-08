@@ -34,7 +34,6 @@ Imports:
     Publish (>= 2020.12.23),
     networkD3 (>= 0.4),
     stringr (>= 1.4.0),
-    htmlwidgets (>= 1.5.3),
     ggplot2 (>= 3.3.3),
     viridis (>= 0.3.0),
     scales (>= 1.1.1),

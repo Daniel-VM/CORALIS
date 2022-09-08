@@ -117,10 +117,10 @@ tienrich<-function(input_list, type, organism, min=1,  fdr=1){
   enrichment <- lapply(list_of_genes, do_enrichtment) %>%
                 do.call(rbind,.) %>%
                 mutate(FDR=p.adjust(.$pvalue,method = "BH")) %>%
-                filter(.,FDR <= fdr ) %>%
-                dplyr::arrange(.,FDR) %>%
+                filter(FDR <= fdr ) %>%
+                dplyr::arrange(FDR) %>%
                 dplyr::select(
-                              ., Gene_symbol, num_interactions,
+                               Gene_symbol, num_interactions,
                               ncRNAs, pvalue, FDR,
                               OR, OR.SE, OR.IC.lower, OR.IC.upper
                               #RR, RR.SE, RR.IC.low, RR.IC.upper

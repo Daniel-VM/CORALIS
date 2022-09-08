@@ -19,19 +19,19 @@ nodeNet<-function(obj, top, fixedsize){
 
   sets <- obj %>%
     head(n = top) %>%
-    select(., Gene_symbol, ncRNAs, FDR, num_interactions) %>%
+    select(Gene_symbol, ncRNAs, FDR, num_interactions) %>%
     group_by(Gene_symbol) %>%
-    dplyr::group_split(.)
+    dplyr::group_split()
 
   # Build network
   networkData<-lapply(sets, function(i){
-    spl<- data.frame(src=str_split(i$ncRNAs, " / ") %>% unlist(.))
+    spl<- data.frame(src=str_split(i$ncRNAs, " / ") %>% unlist())
     spl$target<-i$Gene_symbol
     spl$fdr<-i$FDR
     spl$radi<-i$num_interactions
     return(spl)}) %>%
-    do.call(rbind, .) %>%
-    select(., target, src, fdr, radi)
+    do.call(what = rbind) %>%
+    select(target, src, fdr, radi)
 
   # nodes
   nodes <- data.frame(name = unique(c(networkData$src, networkData$target)))
@@ -45,7 +45,7 @@ nodeNet<-function(obj, top, fixedsize){
       length() %>%
       rep(5,.)
     target_size <- distinct(networkData, target,radi)$radi  %>%
-      rescale(.,c(1,30))
+      rescale(c(1,30))
 
     nodes$radius <- c(src_size, target_size)
   }else{
@@ -56,7 +56,7 @@ nodeNet<-function(obj, top, fixedsize){
   links <- data.frame(source = match(networkData$src, nodes$name) - 1,
                       target = match(networkData$target, nodes$name) - 1)
   # Custom edges
-  links$width <- log(networkData$fdr) %>% abs(.) %>% rescale(.,c(1,10)) %>% round(., digits = 2)
+  links$width <- log(networkData$fdr) %>% abs() %>% rescale(c(1,10)) %>% round( digits = 2)
 
   #plot
   forceNetwork(Links = links,
@@ -76,7 +76,7 @@ nodeNet<-function(obj, top, fixedsize){
                radiusCalculation = JS("Math.sqrt(d.nodesize)+4"),
                colourScale = JS('d3.scaleOrdinal()
                .domain(["ncRNAs", "Target genes"])
-               .range(["#6a0dad", "#e38e00"]);')) %>% return(.)
+               .range(["#6a0dad", "#e38e00"]);')) %>% return()
 }
 #' @title nodeBar
 #' @description Create a barplot to visualize the number of interactions between ncRNAs and their target genes according to the ncRNA-target enrichment analysis (see ?tienrich).
