@@ -230,12 +230,23 @@ Once we have found the enriched target genes whose expression may be altered by 
 There are available packages in Bioconductor that allow for functional enrichment analysis. Here we use the *enrichGO* function (*clusterProfiler* package [3]) to identify whether the top 25 gene targets are overrepresented in any biological process listed in the Gene Ontology database (see [Gene Ontholgy resources](http://geneontology.org/))[4].
 
 
-```{r Functional_GOanalysis, message=FALSE}
-# Load required libraries
-library(biomaRt)
-library(clusterProfiler)
-library(org.Hs.eg.db)
 
+```{r Functional_GOanalysis, message=FALSE}
+# Load dependencies for pathway enrichment analysis
+if (!require("BiocManager", quietly = TRUE))
+  install.packages("BiocManager")
+
+if (!require("biomaRt", quietly = TRUE))
+  BiocManager::install("biomaRt")
+library(biomaRt)
+
+if (!require("clusterProfiler", quietly = TRUE))
+  BiocManager::install("clusterProfiler")
+library(clusterProfiler)
+
+if (!require("org.Hs.eg.db", quietly = TRUE))
+  BiocManager::install("org.Hs.eg.db")
+library(org.Hs.eg.db)
 
 # 1- convert gene target's symbol into ENTREZID format
 gene <- genetar@results$Gene_symbol[1:25] # top 25 targets
