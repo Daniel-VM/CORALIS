@@ -107,7 +107,11 @@ You can install both the released and the development version of CORALIS from [G
 
 ```{r Installation, eval=FALSE}
 # install.packages("devtools")
-devtools::install_github("Daniel-VM/CORALIS")
+devtools::install_github(repo = "Daniel-VM/CORALIS",
+                         ref = "dev",
+                         dependencies = T, 
+                         build_vignettes = T
+                         )
 
 ```
 
@@ -116,6 +120,7 @@ To be able to use miRNnode's functions we first have to load CORALIS:
 
 ```{r Load_library, eval=FALSE}
 library(CORALIS)
+# browseVignettes("CORALIS") # access to this manual web page
 ```
 
 
