@@ -233,8 +233,8 @@ There are available packages in Bioconductor that allow for functional enrichmen
 
 ```{r Functional_GOanalysis, message=FALSE}
 # Load dependencies for pathway enrichment analysis
-if (!require("BiocManager", quietly = TRUE))
-  install.packages("BiocManager")
+#if (!require("BiocManager", quietly = TRUE))
+#  install.packages("BiocManager")
 
 #if (!require("biomaRt", quietly = TRUE))
 #  BiocManager::install("biomaRt")
