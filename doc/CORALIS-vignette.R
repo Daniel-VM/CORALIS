@@ -46,6 +46,7 @@ df %>%
 ## ----Installation, eval=FALSE-------------------------------------------------
 #  # install.packages("devtools")
 #  devtools::install_github("Daniel-VM/CORALIS")
+#  
 
 ## ----Load_library, eval=FALSE-------------------------------------------------
 #  library(CORALIS)
@@ -55,7 +56,7 @@ df %>%
 data("rnasID")
 
 # rnasID contains the IDs of several ncRNAs (See: help(ids)). In this example we are going to choose 50 miRNAs where the first five have significantly higher expression levels after treatment (deferentially expressed miRNAs).
-mirs<-ids[["miRNAs"]][1:5]
+mirs<-ids[["miRNAs"]][1:9]
 head(mirs)
 
 
@@ -86,30 +87,40 @@ genetar@not_found
 
 ## ----Target_barplot-----------------------------------------------------------
 # Barplot of targets genes
-bar <- nodeVisu(obj = genetar,top = 25, type = "barplot")
+bar <- nodeVisu(obj = genetar,top = 30, type = "barplot")
 print(bar)
 
 ## ----Target_network-----------------------------------------------------------
 # Interactive 3D network
 net <- nodeVisu(obj = genetar, 
-                top = 25, 
+                top = 30, 
                 fixedsize = FALSE, # if true, default node size is fixed
                 type = "network")
 net
 
 ## ----Functional_GOanalysis, message=FALSE-------------------------------------
-# Load required libraries
-library(biomaRt)
-library(clusterProfiler)
-library(org.Hs.eg.db)
+# Load dependencies for pathway enrichment analysis
+if (!require("BiocManager", quietly = TRUE))
+  install.packages("BiocManager")
 
+#if (!require("biomaRt", quietly = TRUE))
+#  BiocManager::install("biomaRt")
+library(biomaRt)
+
+#if (!require("clusterProfiler", quietly = TRUE))
+#  BiocManager::install("clusterProfiler")
+library(clusterProfiler)
+
+#if (!require("org.Hs.eg.db", quietly = TRUE))
+#  BiocManager::install("org.Hs.eg.db")
+library(org.Hs.eg.db)
 
 # 1- convert gene target's symbol into ENTREZID format
 gene <- genetar@results$Gene_symbol[1:25] # top 25 targets
 
 # Use Homo sapiens dataset
 ensembl <-useDataset("hsapiens_gene_ensembl",
-                     mart = useMart("ensembl"))
+                     mart = useEnsembl("ensembl","oaries_gene_ensembl"))
 
 # Get the gene IDs
 gene_id <- unique(getBM(attributes = c("hgnc_symbol", "entrezgene_id"),    
@@ -132,17 +143,26 @@ head(s_biopro, n = 10)
 
 
 ## ----GOterm_inspect-----------------------------------------------------------
-# Filter the miRNA target enrichment matrix to identify the miRNAs involved in the deregulation of genes in GO:0042493
-genes_go0042493_entrezid <- subset(s_biopro, ID == "GO:0042493") %>%
+# Filter the miRNA target enrichment matrix to identify the miRNAs involved in the deregulation of genes in GO:1904646
+genes_go1904646_entrezid <- subset(s_biopro, ID == "GO:1904646") %>%
                             dplyr::select(., geneID) %>%
                             str_split(., "/", simplify = FALSE) %>%
                             unlist(.)
 
-genes_go0042493_symbol <- subset(gene_id, entrezgene_id %in% genes_go0042493_entrezid) %>% 
+genes_go1904646_symbol <- subset(gene_id, entrezgene_id %in% genes_go1904646_entrezid) %>% 
                           dplyr::select(., hgnc_symbol) %>% 
                           pull(.)
 
-# Fin the miRNAs involved in the regulation of genes in GO:0042493
-mirnas_go0042493<- subset(genetar@results, Gene_symbol %in% genes_go0042493_symbol)
-mirnas_go0042493
+# Fin the miRNAs involved in the regulation of genes in GO:1904646
+mirnas_go1904646<- subset(genetar@results, Gene_symbol %in% genes_go1904646_symbol)
+mirnas_go1904646
+
+## -----------------------------------------------------------------------------
+# Plot 3D network of interactions between genes in GO:1904646 and the deregulated miRNAs.
+net_go1904646<- nodeVisu(obj = mirnas_go1904646,
+                         type= "network")
+net_go1904646
+
+## ----info_session-------------------------------------------------------------
+sessionInfo()
 
