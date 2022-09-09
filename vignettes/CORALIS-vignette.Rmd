@@ -31,6 +31,7 @@ library(kableExtra)
 library(stringr)
 library(dplyr)
 require(prettydoc)
+devtools::document()
 ```
 
 # 1. CORALIS

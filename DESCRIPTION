@@ -40,7 +40,7 @@ Imports:
     scales (>= 1.1.1),
     RSQLite (>= 2.2.2),
     methods (>= 4.0.5),
-    BiocManager (>= 3.15),
+    BiocManager (>= 1.30),
     biomaRt (>= 2.52.0),
     clusterProfiler (>= 4.4.4),
     org.Hs.eg.db (>= 3.15.0)
