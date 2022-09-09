@@ -22,7 +22,11 @@ from [GitHub](https://github.com/Daniel-VM/CORALIS) with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("Daniel-VM/CORALIS")
+devtools::install_github(repo = "Daniel-VM/CORALIS",
+                         ref = "dev",
+                         dependencies = T, 
+                         build_vignettes = T
+                         )
 ```
 
 ## Example

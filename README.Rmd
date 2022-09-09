@@ -24,7 +24,11 @@ You can install both the released and the development version of CORALIS from [G
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("Daniel-VM/CORALIS")
+devtools::install_github(repo = "Daniel-VM/CORALIS",
+                         ref = "dev",
+                         dependencies = T, 
+                         build_vignettes = T
+                         )
 ```
 ## USAGE
 
