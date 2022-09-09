@@ -5,4 +5,4 @@ conflicts/
 test/
 nextflow*
 .Rproj.user
-Meta/
+/Meta/
