@@ -1,23 +1,24 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# CORALIS
+# Introduction
 
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of CORALIS is to analyze the interactions between non-coding
+CORALIS is an R package for analyzing interactions between non-coding
 RNA (ncRNA) and their target genes (mRNA). To this end CORALIS gathers
 experimentally validated records (ncRNA - mRNA interactions) from
-miRTarbase and RNAInter into a single SQL database that will be used as
-as background during the analysis. CORALIS uses the hypergeometric
+[miRTarbase](http://mirtarbase.cuhk.edu.cn/php/index.php) and [RNAInter v4 database](http://www.rna-society.org/rnainter/) that will be used as
+as background during the analysis. CORALIS employs a hypergeometric
 distribution test to determine enriched target genes given a list of
 non-coding RNAs in [miRBase](http://www.mirbase.org/search.shtml) format
 for microRNA-target enrichment analysis (ie: ‘hsa-miR-3196’) or
 [Official Gene Symbol](https://www.genenames.org/) format for the rest
-of ncRNAs (i.e: ‘RUNX2’).
+of ncRNAs (i.e: ‘RUNX2’). So far, CORALIS supports miRNA, lncRNA, snRNA and snoRNA target enrichment analysis for several species such as *Homo sapiens*, *Rattus norvegicus*, *Caenorhabditis elegans* and *Drosophila melanogaster*, among others. 
 
-You can install both the released and the development version of CORALIS
+## Installation
+You can install both the release and the development version of CORALIS
 from [GitHub](https://github.com/Daniel-VM/CORALIS) with:
 
 ``` r
@@ -28,11 +29,12 @@ devtools::install_github(repo = "Daniel-VM/CORALIS",
                          build_vignettes = T
                          )
 ```
+Make sure you have installed *R* (>= 4.2) and the R package *devtools* (>= 2.4.4) before installing CORALIS.
 
-## Example
 
-This is a basic example in R which shows you how to solve a common
-problem:
+## USAGE
+### Target Enrichment Analysis
+The CORALIS's *tienrich()* function performs enrichment analysis for ncRNA-target interactions. A basic usage example for human microRNA target analysis is shown below: 
 
 ``` r
 # LOAD PACKAGES
@@ -47,6 +49,7 @@ head(ids[["miRNAs"]])
 #> [5] "hsa-miR-4433b-3p" "hsa-miR-3605-3p"
 
 # RUN microRNA TARGET ENRICHMENT ANALYSIS WITH tienrich()
+# ?tienrich() # Access to help page
 tar_mir <- tienrich(input_list=ids[['miRNAs']], min = 2, fdr = 1, organism='Homo sapiens', type = 'miRNA_mRNA')
 #> No targets found for:
 #> hsa-miR-10399-3p
@@ -80,11 +83,17 @@ head(tar_mir@results)
 #> 5 3.341132e-04 0.11048011       Inf       Inf         NaN         Inf
 #> 6 3.240906e-04 0.11048011 15.369697 0.5829136    4.903299    48.17728
 
-# OUTPUT 2 (microRNA in the input with no target records)
+# OUTPUT 2 (microRNA in the input with no target records found)
 head(tar_mir@not_found)
 #> [1] "hsa-miR-10399-3p" "hsa-miR-11400"
+```
 
-# VISUALIZATION OF microRNA-TARGET ENRICHMENT ANALYSIS
+### Visualization
+
+The function *nodevisu()* display a series of graphs to visualize the target interaction analysis results. Two formats are supported: 
+
+**Barplot:**
+``` r
 nodeVisu(obj = tar_mir,
          top=25,
          type = "barplot")
@@ -92,6 +101,7 @@ nodeVisu(obj = tar_mir,
 
 <img src="man/figures/README-example-1.png" width="100%" />
 
+**Interactive network plot:**
 ``` r
 nodeVisu(obj = tar_mir, 
          top = 25, 
@@ -100,3 +110,11 @@ nodeVisu(obj = tar_mir,
 ```
 
 ![Figure](vignettes/nodevisu_net.PNG)
+
+## Case-stude example
+
+Case-study example and further information about CORALIS is available in CORAILS vignettes (preferred web browsers: Google Chrome and Mozilla Firefox). 
+
+``` r
+browseVignettes("CORALIS")
+```
