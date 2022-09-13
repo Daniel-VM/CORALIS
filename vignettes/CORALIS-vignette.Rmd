@@ -230,7 +230,7 @@ net
 
 * C) If *type* = "chord" display a chord plot to visualize the interactions between ncRNAs and their gene targets (note: it allows a maximum of 25 gene targets).
 
-```{r Target_network}
+```{r Target_chord}
 # Interactive 3D network
 net <- nodeVisu(obj = genetar, 
                 top = 25, 
