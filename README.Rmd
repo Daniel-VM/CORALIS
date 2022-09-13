@@ -76,11 +76,22 @@ The function *nodevisu()* display a series of graphs to visualize the target int
 
 **Barplot:**
 
-``` {r}
+``` {r eval=FALSE}
 nodeVisu(obj = tar_mir,
          top=25,
          type = "barplot")
 ```
+![Figure](man/figures/README-example-1.png)
+
+**Chord plot:**
+
+```{r eval=FALSE}
+nodeVisu(obj = tar_mir, 
+         top = 25, 
+         fixedsize = FALSE, # if true, default node size is fixed
+         type = "chord")
+```
+![Figure](man/figures/README-example-2.png)
 
 **Interactive network plot:**
 
@@ -90,8 +101,7 @@ nodeVisu(obj = tar_mir,
          fixedsize = FALSE, # if true, default node size is fixed
          type = "network")
 ```
-
-![Figure](vignettes/nodevisu_net.PNG)
+![Figure](man/figures/README-example-3.png)
 
 ## Case-stude example
 

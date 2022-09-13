@@ -101,6 +101,14 @@ nodeVisu(obj = tar_mir,
 
 <img src="man/figures/README-example-1.png" width="100%" />
 
+**Chord plot:**
+``` r
+nodeVisu(obj = tar_mir, 
+         top = 25, 
+         type = "chord")
+```
+<img src="man/figures/README-example-2.png" width="100%" />
+
 **Interactive network plot:**
 ``` r
 nodeVisu(obj = tar_mir, 
@@ -109,7 +117,7 @@ nodeVisu(obj = tar_mir,
          type = "network")
 ```
 
-![Figure](vignettes/nodevisu_net.PNG)
+<img src="man/figures/README-example-3.png" width="100%" />
 
 ## Case-stude example
 
