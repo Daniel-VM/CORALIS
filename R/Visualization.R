@@ -111,7 +111,7 @@ nodeBar<-function(obj, top){
 #' @inheritParams nodeNet
 #' @import circlize
 #' @importFrom dplyr %>% mutate select
-#' @importFrom pals alphabet
+#' @importFrom pals cols25
 #' @return A object from class dataframe containing values documented in \link[circlize]{chordDiagram}
 nodeChord <- function(obj,top){
 
