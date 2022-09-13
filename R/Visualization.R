@@ -15,7 +15,7 @@
 #' @references 1. J.J. Allaire, Christopher Gandrud, Kenton Russell and CJ Yetman (2017). networkD3: D3 JavaScript Network Graphs from R. R package version 0.4. https://CRAN.R-project.org/package=networkD3
 nodeNet<-function(obj, top, fixedsize){
   # 1.Set top interactions
-  top <- ifelse(is.null(top), yes = nrow(obj), no = top)
+#  top <- ifelse(is.null(top), yes = nrow(obj), no = top)
 
   sets <- obj %>%
     head(n = top) %>%
@@ -84,7 +84,7 @@ nodeNet<-function(obj, top, fixedsize){
 #' @importFrom stats reorder
 #' @return A object from class ggplot
 nodeBar<-function(obj, top){
-  top <- ifelse(is.null(top), yes = nrow(obj), no = top)
+  #top <- ifelse(is.null(top), yes = nrow(obj), no = top)
   obj <- obj[c(1:top),]
   g<-ggplot(obj,aes(y=as.numeric(num_interactions), x=reorder(x = as.factor(Gene_symbol),FDR), fill=FDR))+
     geom_bar(alpha=0.8, stat="identity", color = "gray27") +
@@ -106,10 +106,64 @@ nodeBar<-function(obj, top){
     coord_flip()
   return(g)
 }
+#' @title nodeChord
+#' @description Create a chord plot to visualize interactions between ncRNAs and their target genes according to the ncRNA-target enrichment analysis (see ?tienrich).
+#' @inheritParams nodeNet
+#' @import circlize
+#' @importFrom dplyr %>% mutate select
+#' @importFrom RColorBrewer brewer.pal brewer.pal.info
+#' @return A object from class dataframe containing values documented in \link[circlize]{chordDiagram}
+nodeChord <- function(obj,top){
+
+  # Input processing
+  mat <- build_chordMatrix(mti = obj[1:top,])
+
+  mat <- mat %>% mutate(genesect = factor(mat$gene) %>% as.numeric()) %>%
+    dplyr::select(gene, mir, genesect )
+
+
+  # Plot items formating
+  items      <- c(unique(mat$gene), unique(mat$mir))
+  structure  <- structure(1:length(items), names = items)
+
+  # Set plot aesthetics
+  col      <- ifelse(names(structure)%in%unique(mat$mir), yes = "grey", no = "blue")
+  grid.col <- structure(col, names = c(unique(mat$gene), unique(mat$mir)))
+  gaps     <- ifelse(grid.col == 'grey', yes = 2, no = 4)
+
+  n_genes  <- length(unique(mat$gene))
+  if( n_genes <= brewer.pal.info["Paired",]$maxcolors){
+    grid.col[1:n_genes] <- brewer.pal(n =n_genes, name = 'Paired')
+
+  }
+
+  # Init Chordplot
+  circos.par(start.degree = 90)
+  chordDiagram(mat,
+               grid.col = grid.col,
+               #col = col_df$c.as.factor.glob_mat.gene..,
+               annotationTrack = "grid",
+               preAllocateTracks = list(track.height = max(strwidth(unlist(dimnames(mat))))),
+               scale=TRUE,
+               link.sort = FALSE,
+               big.gap = 30)
+
+  # Customize plot labels
+  circos.track(track.index = 1, panel.fun = function(x, y) {
+    circos.text(CELL_META$xcenter, CELL_META$ylim[1], CELL_META$sector.index,
+                facing = "clockwise", niceFacing = TRUE, adj = c(0, 0.5),cex = 1)
+  }, bg.border = NA) # here set bg.border to NA is important
+
+  # END Chrodplot
+  circos.clear() # Always after plotting
+}
+
+
+
 #' @title nodeVisu
 #' @description Visualization of ncRNA-target enrichment analysis.
 #' @inheritParams nodeNet
-#' @param type string specifying the type of visual representation. So far "network" and "barplot" are available.
+#' @param type string specifying the type of visual representation. So far "network", "barplot" and "chord" are available.
 #' @examples
 #' \dontrun{
 #' # vector of ncRNA IDs
@@ -127,13 +181,23 @@ nodeBar<-function(obj, top){
 #' }
 #' @export
 nodeVisu <-function(obj, top=NULL, type, fixedsize=TRUE){
+  # set top interactions
+  if (is.null(top)){
+    if (nrow(obj)<=25){
+      top <- nrow(obj)
+    }else{
+      message("Top 25 interactions are shown as default")
+      top <- 25
+    }
+  }
+
   # 1.1 Parsing inputs
   if(class(obj)=="CoralisResult"){
     obj <- obj@results
   }else{
     obj <- obj
   }
-  if(!(type %in% c("network","barplot"))){
+  if(!(type %in% c("network","barplot","chord"))){
     stop("Invalid argument 'type'. See help('nodeVisu')")
   }
   # 2- Choosing graphics
@@ -142,5 +206,12 @@ nodeVisu <-function(obj, top=NULL, type, fixedsize=TRUE){
   }
   if(type == "barplot"){
     return(nodeBar(obj, top))
+  }
+  if(type == "chord" ){
+    if (top > 25){
+      stop("Chord diagram allows a maximum of 25 interactions.\nPlease, set 'top' as default or top less than or equal to 25")
+    }else{
+      return(nodeChord(obj, top))
+    }
   }
 }

@@ -11,7 +11,7 @@ nodeVisu(obj, top = NULL, type, fixedsize = TRUE)
 
 \item{top}{integer indicating the top interactions to be represented in the graph.}
 
-\item{type}{string specifying the type of visual representation. So far "network" and "barplot" are available.}
+\item{type}{string specifying the type of visual representation. So far "network", "barplot" and "chord" are available.}
 
 \item{fixedsize}{Bolean. If fixedsize=True allows for interactive network, otherwise network motion is restricted.}
 }

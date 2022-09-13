@@ -40,6 +40,8 @@ Imports:
     scales (>= 1.1.1),
     RSQLite (>= 2.2.2),
     methods (>= 4.0.5),
+    circlize (>= 0.4.15),
+    RColorBrewer (>= 1.1-3),
     BiocManager (>= 1.30),
     biomaRt (>= 2.52.0),
     clusterProfiler (>= 4.4.4),
