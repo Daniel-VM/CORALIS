@@ -111,7 +111,7 @@ nodeBar<-function(obj, top){
 #' @inheritParams nodeNet
 #' @import circlize
 #' @importFrom dplyr %>% mutate select
-#' @importFrom RColorBrewer brewer.pal brewer.pal.info
+#' @importFrom pals alphabet
 #' @return A object from class dataframe containing values documented in \link[circlize]{chordDiagram}
 nodeChord <- function(obj,top){
 
@@ -132,10 +132,7 @@ nodeChord <- function(obj,top){
   gaps     <- ifelse(grid.col == 'grey', yes = 2, no = 4)
 
   n_genes  <- length(unique(mat$gene))
-  if( n_genes <= brewer.pal.info["Paired",]$maxcolors){
-    grid.col[1:n_genes] <- brewer.pal(n =n_genes, name = 'Paired')
-
-  }
+  grid.col[1:n_genes] <- cols25(n=n_genes)
 
   # Init Chordplot
   circos.par(start.degree = 90)
