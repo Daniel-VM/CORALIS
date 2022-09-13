@@ -230,7 +230,7 @@ net
 
 * C) If *type* = "chord" display a chord plot to visualize the interactions between ncRNAs and their gene targets (note: it allows a maximum of 25 gene targets).
 
-```{r Target_network}
+```{r Target_chord}
 # Interactive 3D network
 net <- nodeVisu(obj = genetar, 
                 top = 25, 
@@ -325,7 +325,7 @@ In conclusion, CORALIS helps to analyze the complex regulatory network between n
 sessionInfo()
 ```
 
-# 8. REFFERENCES
+# 8. REFERENCES
 
 1. Romano G, Veneziano D, Acunzo M, Croce CM. Small non-coding RNA and cancer. Carcinogenesis. 2017 May 1;38(5):485-491. doi: 10.1093/carcin/bgx026. PMID: 28449079; PMCID: PMC6248440.  
 
