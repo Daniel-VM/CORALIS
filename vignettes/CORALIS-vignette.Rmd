@@ -36,7 +36,7 @@ devtools::document()
 
 # 1. CORALIS
 
-CORALIS is an R package for non-coding RNA target enrichment analysis exclusively based on experimentally validated interactions. This package allows for the identification of enriched target genes given a list of ncRNAs defined by the user. To do so, CORALIS access to [miRTarbase](http://mirtarbase.cuhk.edu.cn/php/index.php) and [RNAInter database](http://www.rna-society.org/rnainter/) and retrieves records associated with experimentally supported interactions between ncRNAs and their gene targets. So far, CORALIS supports miRNA, lncRNA, snRNA and snoRNA target enrichment analysis for several species such as *Homo sapiens*, *Rattus norvegicus*, *Caenorhabditis elegans* and *Drosophila melanogaster*, among others. 
+CORALIS is an R package for a wide variety of non-coding RNA target enrichment analysis exclusively based on experimentally validated interactions. This package allows for the identification of enriched target genes given a list of ncRNAs defined by the user. To do so, CORALIS access to [miRTarbase](http://mirtarbase.cuhk.edu.cn/php/index.php) and [RNAInter database](http://www.rna-society.org/rnainter/) and retrieves records associated with experimentally supported interactions between ncRNAs and their gene targets. So far, CORALIS supports miRNA, lncRNA, snRNA and snoRNA target enrichment analysis for several species such as *Homo sapiens*, *Rattus norvegicus*, *Caenorhabditis elegans* and *Drosophila melanogaster*, among others. 
 
 
 # 2. State of Art
@@ -54,56 +54,50 @@ Here we present **CORALIS**, an R package focused on the statistical analysis of
 
 ```{r Table_1, echo=FALSE}
 # List of available interactions with experimental support by species
-table_nums <- captioner::captioner(prefix = "Table")
-tab.1_cap  <- table_nums(name = "Table 1", 
-                         caption = "Supported species in CORALIS for ncRNA-gene target enrichment analysis. Each entry indicates the number and type of ncRNA-target interaction in CORALIS by specie.")
 availsp() %>% 
-  kbl(caption = tab.1_cap) %>%
-  kable_classic(full_width = F, html_font = "Cambria")
+  kbl(caption = "**Table 1:** Supported species in CORALIS for ncRNA-gene target enrichment analysis. Each entry indicates the type and number of ncRNA-target interaction in CORALIS by specie.", format = 'html', booktabs = TRUE) %>%
+  kable_classic(full_width = F, html_font = "Cambria") %>%
+  column_spec(1, italic = TRUE)
 ```
 
 
 # 3. CORALIS ncRNA-target enrichment statistics 
 
-CORALIS contains a set of functions that calculates the enriched target genes from a list of ncRNAs provided by the user (input). CORALIS builds a 2x2 contingency table for each target gene and executes an hypergeometric distribution test, commonly known as one-tailed Fisher’s exact test. Table 2 shows the 2x2 contingency table.
+CORALIS calculates the enriched target genes from a list of ncRNAs provided by the user (input). CORALIS builds a 2x2 contingency table for each target gene and executes an hypergeometric distribution test, commonly known as one-tailed Fisher’s exact test. Table 2 shows the 2x2 contingency table.
 
 
 ```{r Table2, echo = FALSE}
 # Build 2x2 matrix
 mat<-matrix(0L, nrow = 3, ncol = 3)
 colnames(mat)<-c(" ncRNAs in input ", "NOT ncRNAs in input","Total")
-rownames(mat)<-c(" gene i", " NOT gene i", "Total")
+rownames(mat)<-c(' gene *i*', " NOT gene *i*", "Total")
 mat[,1]<-c("a","c","a+c")
 mat[,2]<-c("b","d","b+d")
 mat[,3]<-c("a+b","c+d","N=a+b+c+d")
 df<-as.data.frame(mat)
 
-# Setup title
-tab.2_cap  <- table_nums(name = "Table 2", 
-                         caption = "The 2X2 contingenc table for gene i analysis as potential gene-target of ncRNAs that user set in the input with the cell fequencies represented as a, b, c and d, and the marginal totals as a+b, c+d, a+b, and c+b")
-
 # print table in pretty format
 df %>% 
-    kbl(caption = tab.2_cap) %>%
+    kbl(caption = "**Table 2:** The 2X2 contingenc table for gene i analysis as potential gene-target of ncRNAs that user set in the input with the cell fequencies represented as a, b, c and d, and the marginal totals as a+b, c+d, a+b, and c+b", format = "html") %>%
     kable_classic(full_width = F, html_font = "Cambria") 
 
 ```
 
 \n 
-where *i* is a gene target for any ncRNA in the input with annotation in the source databases (miRTarbase for miRNAs, or RNAInter database for lncRNAs, snoRNAs and snRNAs); *a* represents the hits, that is the number of ncRNAs introduced by the user in the input which interacts with gene *i*; *b* points to the number of ncRNAs in the source databases that target gene i but does not appear in the user's input; *a+b* is the total number of ncRNAs in the source databases that interacts with gene *i*; *c* represents the number of ncRNAs in the input that do not interact with gene *i* according with the information stored in the source databases; *d* is the number of ncRNAs in the source databases but not in the user's input that do not target gene *i*; *c+d* is the number of total known ncRNAs that do not interact with gene i; *N* points to the total number of ncRNAs annotated in the source databases.
+where *i* is a gene target for any ncRNA in the input with annotation in the source databases (miRTarbase for miRNAs, or RNAInter database for lncRNAs, snoRNAs and snRNAs); *a* represents the number of ncRNAs introduced by the user in the input which interacts with gene *i*; *b* points to the number of ncRNAs in the source databases that target gene *i* but does not appear in the user's input; *a+b* is the total number of ncRNAs in the source databases that interacts with gene *i*; *c* represents the number of ncRNAs in the input that do not interact with gene *i* according with the information stored in the source databases; *d* is the number of ncRNAs in the source databases but not in the user's input that do not target gene *i*; *c+d* is the number of total known ncRNAs that do not interact with gene i; *N* points to the total number of ncRNAs annotated in the source databases.
 
 
 The p-value is computed as follows:
 
 $$p=1-\sum_{n = 0}^{a-1} \frac{\binom{a+b}{a} \binom{c+d}{c}}{\binom{N}{a+c}}$$
 
-Moreover, CORALIS provides other additional interesting statistical analyses such as  the odds ratio (OR), the relative risk (RR) –plus their respective confidence interval ls at alpha=0.05 and standard errors - and the adjusted p-value (false discovery rate (FDR), using Benjamin-Hochberg correction [2]):
+Moreover, CORALIS provides other additional interesting statistical analyses such as  the odds ratio (OR), the relative risk (RR) and the adjusted p-value (false discovery rate (FDR), using Benjamin-Hochberg correction [2]):
  
 $$OR=\frac{(\frac{a}{b})}{(\frac{c}{d})}$$
 
 # 4. Installation and package loading 
 
-You can install both the released and the development version of CORALIS from [GitHub](https://github.com/Daniel-VM/CORALIS) with:
+Either the released or the development version of CORALIS can be installed from [GitHub](https://github.com/Daniel-VM/CORALIS) with:
 
 ```{r Installation, eval=FALSE}
 # install.packages("devtools")
@@ -125,23 +119,23 @@ library(CORALIS)
 
 
 
-# 5. ncRNA-target enrichment analyisis with CORALIS
+# 5. ncRNA-target enrichment analysis with CORALIS
 
 The *tienrich()* function in CORALIS allows target enrichment analysis given a list of ncRNAs. This function scans the miRTarbase and the RNAInter databases, reporting those interactions with experimental support. It subsequently applies an hypergeometric distribution test to assess whether the target genes for the miRNA-input list are enriched.
 
 * The following arguments in *tienrich()* must be defined by the user: 
   + *input_list*:  a vector of ncRNAs IDs. The IDs must be defined in the [miRBase](http://www.mirbase.org/search.shtml) format for microRNA-target enrichment analysis (ie: 'hsa-miR-3196') or [Official Gene Symbol](https://www.genenames.org/) format for the rest of ncRNAs (i.e: 'RUNX2'). 
-  + *type*: character string indicating the type of ncRNA target enrichment analysis (this depends on the type of ncRNAs defined in the input). For example: miRNA_mRNA' for microRNA-target interactions, 'lncRNA_mRNA' for lncRNA-target interactions, 'snoRNA_mRNA' for snoRNA-target interactions or 'snRNA_mRNA' for snRNA-target interactions.
+  + *type*: character string indicating the type of ncRNA target enrichment analysis (this depends on the type of ncRNAs defined in the input). For example: miRNA_mRNA' for microRNA-target interactions, 'lncRNA_mRNA' for lncRNA interaction with targeted mRNAs, 'snoRNA_mRNA' for snoRNA-target interactions or 'snRNA_mRNA' for snRNA-target interactions.
   + *min*: integer specifying the minimum number of interactions that target genes must have with the ncRNAs in the input in order to be analyzed. Default is min = 1.
-  + *fdr*: the desired adjusted p-value threshold at which the enriched target-genes are found.
-  + *organism*: character string specifying the organism name (i.e: "*Homo sapiens*"). Run *availsp()* to list all available species.
+  + *fdr*: the desired adjusted p-value threshold at which the enriched target-genes are found. Default is 1, means all target genes will be displayed.
+  + *organism*: character string specifying the scientific organism name (i.e: "*Homo sapiens*"). Run *availsp()* to list all available species.
   
 
 ## 5.1 CORALIS example - Human microRNA dataset
 
-Let’s imagine that we are analyzing the expression profile of ncRNAs, for example microRNAs (miRNAs), in a human specific cell type before and after certain treatment. Suppose for example that we obtain 9 out of 50 miRNAs with significantly higher expression levels after treatment. The next step would normally be to analyze the potential effect of these 9 deregulated miRNAs might promote on target genes and whether they belong to the same pathway. Therefore, **CORALIS** can be used to determine the potential target genes that may be enriched from an input list and their associated pathways.
+Let’s imagine that we are analyzing the expression profile of microRNAs (miRNAs), in a human specific cell type before and after certain treatment. Suppose that we obtain 9 out of 50 miRNAs with significantly higher expression after treatment. To analyze the potential biological effect of the 9 differentially expressed miRNAs and their connection into biological pathways, we use **CORALIS**.
 
-Our aim here is to identify which genes can be potential enriched targets for these miRNAs. To do this we load an object containing 50 miRNAs IDs in ([miRBase id format](http://www.mirbase.org/search.shtml)). Among them, the 5 first items correspond to the deregulated miRNAs.
+Our aim here is to identify which genes can be potential enriched targets for these specific miRNAs. To do this we load an object containing 50 miRNAs IDs in ([miRBase id format](http://www.mirbase.org/search.shtml)). Among them, the 5 first items correspond to the deregulated miRNAs.
 
 ```{r load_dataset}
 # Load rnasID object 
@@ -188,23 +182,24 @@ genetar@not_found
 
 ```
 
-*Hint: By defining min = 2, only target genes with more than 2 interactions with miRNAs in the input will be candidates for target enrichment analysis (this argument is not mandatory).*
+**Hint**: By defining min = 2, only target genes with more than 2 interactions with miRNAs in the input will be candidates for target enrichment analysis (this argument is not mandatory).
 
 
 "*genetar*" stores the result of the miRNA-target enrichment analysis. First of all, *tienrich()* output is an object belonging to the **CoralisResult** class. This object contains 2 slots. 
-* 1) The first one, @results, is the result of the miRNA-target enrichment analysis in which we have several information: i) the target gene in Official Gene Symbol format(Gene_symbol); ii) the number of interactions between the target gene and the ncRNAs in the input (num_int); iii) the ID of the ncRNAs involved in the interaction (ncRNAs); iv) the p-value (pvalue); v) the adjusted p-value (FDR); vi) the odds ratio (OR); vii) the standard-error of the OR (OR.SE); viii) the relative confidence intervals of the OR (OR.IC).
+
+* 1) The first slot, @results, is the result of the miRNA-target enrichment analysis in which we have several information: i) the target gene in Official Gene Symbol format(Gene_symbol); ii) the number of interactions between the target gene and the ncRNAs in the input (num_int); iii) the ID of the ncRNAs involved in the interaction (ncRNAs); iv) the p-value (pvalue); v) the adjusted p-value (FDR); vi) the odds ratio (OR); vii) the standard-error of the OR (OR.SE); viii) the relative confidence intervals of the OR (OR.IC).
 
 * 2)	The second slot, @notfound, stores the ncRNA IDs in the input list for which no experimentally validated target genes have been found.
 
-### 5.1.2 Visualization of enriched targets
+### 5.1.2 Visualization of enriched target genes
 
-CORALIS also allows to visually analyze the output of the target enrichment analysis. Specifically, the *nodeVisu()* function provides a series of graphs to explore the interaction between the ncRNAs of interest and their target genes, as well as different statistical parameters obtained in the enrichment analyses.
+CORALIS also allows to visually analyze the output of the target enrichment analysis. Specifically, the *nodeVisu()* function which provides a series of graphs to explore the interaction between the ncRNAs of interest and their targeted genes, as well as different statistical parameters obtained in the enrichment analyses.
 
-Firstly, you can use the ncRNA-target enrichment output directly as input of *nodeVisu()*, but it also supports the slot @results independently. The user can choose the number of *top* target genes to be represented in the graphs.
+Firstly, you can use the ncRNA-target enrichment output directly as input of *nodeVisu()*, but it also supports the slot @results independently. The user can choose the number of *top* number of genes with higher significant inteactions with the ncRNA input.
 
 With the *type* argument the graphic format is specified. 
 
-* A) If *type* = "barplot" it creates a barplot for visualizing the number of interactions that top target genes have with the ncRNAs in the input. 
+* A) If *type* = "barplot" it displays a barplot summarizing the top targeted genes and the number of ncRNA interactions per bene. 
 
 We will now visually explore the result of the miRNA-target enrichment analysis for the top 30 target genes. The following bar chart represents on the y-axis the name of the target genes, and on the x-axis the number of interactions that each of these genes has with the ncRNAs in the input. The gradient indicates the FDR of the enrichment analysis.
 
@@ -214,9 +209,9 @@ bar <- nodeVisu(obj = genetar,top = 30, type = "barplot")
 print(bar)
 ```
 
-* B) If *type* = "network", then it creates at html widget to analyze interactively the network of interactions between the ncRNAs and their top target genes according to the enrichment analysis.
+* B) If *type* = "network", then it creates an html widget to analyze interactively the network of interactions between the ncRNAs and their top target genes according to the enrichment analysis.
 
-This graphical representation provides a more detailed information on the interaction between ncRNAs and the top target genes selected. The nodes color of the 3D network graph represent all significant ncRNAs (miRNAs in this example) and their target genes in orange and purple, respectively. The radius size of the node indicates the number of interactions for one specific gene, that is, the larger the number of interactions between the enriched target gene and the ncRNAs in the input the larger will be the size of the node. On the other hand, the links/edges thickness reports the FDR of the interactions (the thicker the link, the lower the FDR, and therefore, the signification of the interaction is higher).
+This graphical representation provides an interactive information on the interactions between ncRNAs and their top targeted genes. The nodes color of the 3D network graph represent all significant ncRNAs (miRNAs in this example) and their target genes in orange and purple, respectively. The larger the radious the larger the number of interactions between the enriched target genes and the ncRNAs. On the other hand, the links/edges thickness represent the FDR of the interactions (the thicker the link, the lower the FDR, and therefore, the signification of the interaction is higher).
 
 ```{r Target_network}
 # Interactive 3D network
@@ -228,7 +223,7 @@ net
 ```
 
 
-* C) If *type* = "chord" display a chord plot to visualize the interactions between ncRNAs and their gene targets (note: it allows a maximum of 25 gene targets).
+* C) If *type* = "chord" display a chord plot to visualize the interactions between the input ncRNA and their top target genes (note: it allows a maximum of 25 gene targets).
 
 ```{r Target_chord}
 # Interactive 3D network
@@ -289,7 +284,7 @@ head(s_biopro, n = 10)
 
 ```
 
-The functional analysis revealed 9 biological processes significantly altered by the deferentially expressed miRNAs after the treatment. Specifically the miRNAs enriched target genes ABCC1 (entrezID:4363), GRM5 (entrezID:2915) and ICAM1 (entrezID:3383) play role in [GO:1904646](https://www.ebi.ac.uk/QuickGO/term/GO:1904646). This GO term encompasses any process related to processes that results in alterations of cell activity as a consequence of a amyloid-beta stimulus.
+Regarding the example used above, functional analysis revealed 9 biological processes significantly altered by the deferentially expressed miRNAs after the treatment. Specifically the miRNAs enriched target genes ABCC1 (entrezID:4363), GRM5 (entrezID:2915) and ICAM1 (entrezID:3383) play role in [GO:1904646](https://www.ebi.ac.uk/QuickGO/term/GO:1904646). 
 
 ```{r GOterm_inspect}
 # Filter the miRNA target enrichment matrix to identify the miRNAs involved in the deregulation of genes in GO:1904646
@@ -302,12 +297,12 @@ genes_go1904646_symbol <- subset(gene_id, entrezgene_id %in% genes_go1904646_ent
                           dplyr::select(., hgnc_symbol) %>% 
                           pull(.)
 
-# Fin the miRNAs involved in the regulation of genes in GO:1904646
+# Find the miRNAs involved in the regulation of genes in GO:1904646
 mirnas_go1904646<- subset(genetar@results, Gene_symbol %in% genes_go1904646_symbol)
 mirnas_go1904646
 ```
 We can now individually analyze whether the significant enriched target genes from the input list are significantly involved in a specific GO term, such as the GO:1904646.
-This information can be depicted in  network of interactions where the genes within a specific GO term and their related miRNAs are represented.
+This information can be depicted a  network of interactions, where the genes within a specific GO term and their related miRNAs are represented.
 
 ```{r}
 # Plot 3D network of interactions between genes in GO:1904646 and the deregulated miRNAs.

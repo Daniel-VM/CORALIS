@@ -92,7 +92,7 @@ nodeBar<-function(obj, top){
     scale_fill_viridis(option  = "C",direction = 1) +
     ggtitle("Number of interactions per target gene")+
     xlab("Gene names") +
-    ylab("Numbero of interactions") +
+    ylab("Numbers of interactions") +
     theme(panel.border = element_blank(),
           panel.grid.major = element_blank(),
           panel.grid.minor = element_blank(),
