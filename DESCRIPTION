@@ -1,7 +1,7 @@
 Package: CORALIS
 Type: Package
 Title: R package for Non-coding RNA Target Enrichment Analysis
-Version: 0.1.0
+Version: 1.0.0
 Date: 2021-06-01
 Authors@R: c(person("Daniel",
                    "Valle-Millares",
