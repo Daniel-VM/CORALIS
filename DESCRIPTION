@@ -23,7 +23,7 @@ Maintainer: Daniel Valle-Millares <da.valle@isciii.es>
 Description: Non-coding RNAs (ncRNAs) play an important role in the regulation of multitude of biological processes by interacting with and modulating the expression of their target genes.  They are part of a huge and complex network of interactions in which a single non-coding RNA regulates the expression of multiple target genes, and in turn, a single gene can be regulated by several ncRNAs.  However, the large amount of information regarding ncRNAs-target interactions further complicates the manageability and data analysis. The CORALIS package allows ncRNA-target enrichment analysis from an input list of ncRNAs.  Only experimentally validated interactions retrieved from databases such as miRTarbase and RNAInter. So far, CORALIS allows target enrichment analysis and visualization for various ncRNAs such microRNAs, snRNAs, snoRNAs and lncRNAs, from several species such: Homo sapiens, Mus musculus and Caenorhabditis elegans, among others.
 URL: https://github.com/Daniel-VM/CORALIS
 BugReports: https://github.com/Daniel-VM/CORALIS/issues
-Depends: R (>= 4.0), stats, base
+Depends: R (>= 4.2), stats, base
 biocViews:
 License: GPL (>= 3)
 Encoding: UTF-8
